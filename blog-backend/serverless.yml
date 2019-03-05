@@ -1,0 +1,25 @@
+service:
+  name: blog-api
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: ap-northeast-2
+  stage: dev 
+  profile: 
+
+functions:
+  api:
+    handler: src/server.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+      - http:
+          path: /{any+}
+          method: ANY
+     
