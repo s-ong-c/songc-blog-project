@@ -8,7 +8,14 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel-loader'],
+      loaders: [{
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            'flow',
+          ],
+        },
+      }],
       include: __dirname,
       exclude: /node_modules/,
     }],

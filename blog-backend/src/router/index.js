@@ -1,8 +1,10 @@
+// @flow
 import Router from 'koa-router';
 
-const router = new Router();
+const router: Router = new Router();
 
-router.get('/bye',(ctx)=>{
-    ctx.body = 'good bye';
+router.get('/bye', (ctx) => {
+  ctx.body = 'good bye';
 });
-export default router; 
+
+export default router;
