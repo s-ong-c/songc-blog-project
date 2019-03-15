@@ -12,7 +12,7 @@
 - [GraphQL]()
 - [koa-router](https://www.npmjs.com/package/koa-router)
 - [cockroachlabs](https://www.cockroachlabs.com/docs/stable/frequently-asked-questions.html)  
-    - Iinsecure
+    - Iinsecure ( 삽질 중 ……... )
 
 
 ## DB
