@@ -29,15 +29,14 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "bcrypt": "^3.0.4",
     "dotenv": "^7.0.0",
-    "joi": "^13.0.2",
+    "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.0",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.3.0",
-    "nodemon": "^1.12.1",
-    "sequelize": "^5.1.0",
+    "nodemon": "^1.18.10",
+    "sequelize": "^4.26.0",
     "sequelize-cockroachdb": "^1.0.3",
     "serverless-http": "^1.5.2"
-
   }
 }

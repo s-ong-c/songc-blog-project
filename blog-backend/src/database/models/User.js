@@ -2,6 +2,7 @@
 import Sequelize from 'sequelize';
 import bcrypt from 'bcrypt';
 import db from 'database/db';
+import { generate } from 'lib/token';
 // export interface UserAttributes {
 //   id?: string,
 //   username: string,
@@ -40,7 +41,12 @@ export default class User extends UserModel {
     return UserModel.findOne({ where: { [type]: value } });
   }
 
-  generateToken() {
-
+  generateToken(): Promise<string> {
+    type TokenPayload = {
+      id:string,
+      username: string
+    };
+    const {id, username}: TokenPayload = this;
+    return generate({id, username});
   }
 }

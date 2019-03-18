@@ -1,7 +1,7 @@
 // @flow
 import jwt from 'jsonwebtoken';
 
-const { JWT_SECRET: secret } = process.env;
+const { SECRET_KEY: secret } = process.env;
 
 export const generate = (payload: any, options: any): Promise<string> => {
   const a = { ...options };

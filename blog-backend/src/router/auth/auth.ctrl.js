@@ -52,13 +52,18 @@ export const createLocalAccount = async (ctx: Context): Promise<*> => {
 
   try {
     const hash = await User.crypt(password);
-    const user = await User.build({
+    const user:User = await User.build({
       username,
       email,
       password_hash: hash,
     }).save();
-    console.log(user.generateToken());
-    ctx.body = user.dataValues;
+
+    const token: string = await user.generateToken();
+    ctx.body = {
+      data:user.dataValues,
+      token
+    }
+
   } catch (e) {
     ctx.throw(500, e);
   }
