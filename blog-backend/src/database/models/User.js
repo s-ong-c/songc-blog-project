@@ -1,7 +1,7 @@
 // @flow
 import Sequelize from 'sequelize';
+import bcrypt from 'bcrypt';
 import db from 'database/db';
-
 // export interface UserAttributes {
 //   id?: string,
 //   username: string,
@@ -9,7 +9,7 @@ import db from 'database/db';
 //   password_hash?: string
 // }
 
-const User = db.define('user', {
+const UserModel = db.define('user', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV1,
@@ -28,6 +28,19 @@ const User = db.define('user', {
   },
 });
 
-User.sync();
+UserModel.sync();
 
-export default User;
+export default class User extends UserModel {
+  static crypt(password: string): Promise<string> {
+    const saltRounds: number = 10;
+    return bcrypt.hash(password, saltRounds);
+  }
+
+  static getExistancy(type: 'email' | 'username', value: string) {
+    return UserModel.findOne({ where: { [type]: value } });
+  }
+
+  generateToken() {
+
+  }
+}

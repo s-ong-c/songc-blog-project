@@ -2,7 +2,7 @@
 import SequelizeCockroach from 'sequelize-cockroachdb';
 import type Sequelize from 'sequelize';
 
-const db:Sequelize = new SequelizeCockroach('blog', 'song', 'song', {
+const db:Sequelize = new SequelizeCockroach('velog', 'velog', 'velog', {
   dialect: 'postgres',
   port: 26257,
   logging: true,
