@@ -3,6 +3,7 @@ import type { Context } from 'koa';
 import Joi from 'joi';
 
 import User from 'database/models/User';
+import type { UserModel} from 'database/models/User';
 
 
 export const createLocalAccount = async (ctx: Context): Promise<*> => {
@@ -34,8 +35,8 @@ export const createLocalAccount = async (ctx: Context): Promise<*> => {
 
   try {
     const [emailExists, usernameExists] = await Promise.all([
-      User.getExistancy('email', email),
-      User.getExistancy('username', username),
+      User.findUser('email', email),
+      User.findUser('username', username),
     ]);
 
     if (emailExists || usernameExists) {
@@ -58,13 +59,74 @@ export const createLocalAccount = async (ctx: Context): Promise<*> => {
       password_hash: hash,
     }).save();
 
+    console.log(user);
     const token: string = await user.generateToken();
     ctx.body = {
-      data:user.dataValues,
-      token
+      //data: user.dataValues,
+      user,
+      token,
     }
 
   } catch (e) {
     ctx.throw(500, e);
   }
 };
+
+export const localLogin = async (ctx: Context): Promise<*> =>{
+  type BodySchema ={
+    email?: string,
+    password: string,
+    username?: string
+  };
+
+  const { email, username, password}: BodySchema = (ctx.request.body: any);
+  
+  // email & username not given
+  if(!(email || username)){
+    console.log("ss");
+      ctx.status = 401;
+      ctx.body={
+        name: 'LOGIN_FAILURE',
+      };
+      return;
+  }
+  const schema = Joi.object().keys({
+    email: Joi.string().email(),
+    password: Joi.string().min(6).required(),
+    username: Joi.string().alphanum().min(3).max(20),
+  });
+  
+  // somehow wrong schema
+  const result: any = Joi.validate(ctx.request.body, schema);
+  if( result.error){
+    ctx.status = 401;
+    ctx.body = {
+      name: 'LOGIN_FAILURE',
+    };
+    return; 
+  }
+
+  try{
+    const value: any = email || username;
+    const type: ('email' | 'username') = email ? 'email': 'username';
+
+    const user: UserModel = await User.findUser(type, value);
+
+    
+    const validated: boolean = await user.validatePassword(password);
+    if(!validated){
+      ctx.status= 401;
+      ctx.body= {
+        name: 'LOGIN_FAILURE',
+      };
+      return;
+    }
+    const token: string= await user.generateToken();
+    ctx.body ={
+      token,
+    };
+  }catch(e){
+    ctx.throw(500,e);
+  }
+
+}
