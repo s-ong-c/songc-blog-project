@@ -4,6 +4,7 @@ import Joi from 'joi';
 
 import User from 'database/models/User';
 import type { UserModel} from 'database/models/User';
+import { pick} from 'lodash';
 
 
 export const createLocalAccount = async (ctx: Context): Promise<*> => {
@@ -112,6 +113,15 @@ export const localLogin = async (ctx: Context): Promise<*> =>{
 
     const user: UserModel = await User.findUser(type, value);
 
+    if(!user){
+      ctx.status= 401;
+      ctx.body= {
+        name: 'LOGIN_FAILURE',
+      }
+      return;
+    }
+    console.log(user);
+    
     
     const validated: boolean = await user.validatePassword(password);
     if(!validated){
@@ -122,8 +132,20 @@ export const localLogin = async (ctx: Context): Promise<*> =>{
       return;
     }
     const token: string= await user.generateToken();
+
+    // set-cookie
+    // $flowFixme: intersection bug
+    ctx.cookies.set('token',token,{
+      httpOnly:true,
+      maxAge: 1000
+    });
+
     ctx.body ={
-      token,
+      user: {
+        id: user.id,
+        username: user.username,
+      },
+      token
     };
   }catch(e){
     ctx.throw(500,e);
