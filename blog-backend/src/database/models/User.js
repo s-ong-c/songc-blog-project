@@ -55,7 +55,7 @@ User.prototype.generateToken = function generateToken(): Promise<string> {
       username: string
     };
     const {id, username}: TokenPayload = this;
-    return generate({id, username});
+    return generate({user:{id, username} });
   };
 
   User.prototype.validatePassword = function  validatePasswo(password:string): Promise<boolean>{

@@ -3,8 +3,9 @@ import type { Context } from 'koa';
 import Joi from 'joi';
 
 import User from 'database/models/User';
+import UserProfile from 'database/models/UserProfile';
 import type { UserModel} from 'database/models/User';
-import { pick} from 'lodash';
+import type { UserProfileModel} from 'database/models/UserProfile';
 
 
 export const createLocalAccount = async (ctx: Context): Promise<*> => {
@@ -60,13 +61,26 @@ export const createLocalAccount = async (ctx: Context): Promise<*> => {
       password_hash: hash,
     }).save();
 
-    console.log(user);
+    const userProfile = await UserProfile.build({
+      fk_user_id: user.id,
+
+    }).save();
+
     const token: string = await user.generateToken();
-    ctx.body = {
-      //data: user.dataValues,
-      user,
-      token,
-    }
+
+    // $flowFixMe: intersection bug
+    ctx.cookies.set('token',token,{
+      httpOnly:true,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    });
+
+  ctx.body ={
+        user: {
+          id: user.id,
+          username: user.username,
+        },
+        token
+      };
 
   } catch (e) {
     ctx.throw(500, e);
@@ -134,10 +148,10 @@ export const localLogin = async (ctx: Context): Promise<*> =>{
     const token: string= await user.generateToken();
 
     // set-cookie
-    // $flowFixme: intersection bug
-    ctx.cookies.set('token',token,{
+    // $flowFixMe: intersection bug
+    ctx.cookies.set('access_token',token,{
       httpOnly:true,
-      maxAge: 1000
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
     ctx.body ={
@@ -151,4 +165,8 @@ export const localLogin = async (ctx: Context): Promise<*> =>{
     ctx.throw(500,e);
   }
 
+};
+
+export const check = async (ctx: Context): Promise<*>=>{
+  ctx.body =ctx.user;
 }
