@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 import db from 'database/db';
 import User from './User';
 
-export interface UserProfileModel{
+export interface UserProfileModel {
   id: number,
   display_name: string,
   short_bio: string,

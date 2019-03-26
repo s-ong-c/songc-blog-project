@@ -1,11 +1,11 @@
 // @flow
 import Sequelize from 'sequelize';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import db from 'database/db';
 import { generate } from 'lib/token';
 
 export interface UserModel {
-  id?: string,
+  id: string,
   username: string,
   email: string,
   password_hash?: string,
@@ -15,7 +15,7 @@ export interface UserModel {
 
   generateToken(): string;
   validatePassword(password: string): Promise<boolean>;
-};
+}
 
 const User = db.define('user', {
   id: {
@@ -38,29 +38,28 @@ const User = db.define('user', {
 
 User.sync();
 
-User.crypt = function crypt (password: string): Promise<string>{
-
+User.crypt = function crypt(password: string): Promise<string> {
   const saltRounds: number = 10;
   return bcrypt.hash(password, saltRounds);
+};
 
-}
-
-User.findUser = function findUser(type: 'email' | 'username', value: string){
+User.findUser = function findUser(type: 'email' | 'username', value: string) {
   return User.findOne({ where: { [type]: value } });
 };
 
 User.prototype.generateToken = function generateToken(): Promise<string> {
-    type TokenPayload = {
-      id:string,
-      username: string
-    };
-    const {id, username}: TokenPayload = this;
-    return generate({user:{id, username} });
+  type TokenPayload = {
+    id: string,
+    username: string
   };
 
-  User.prototype.validatePassword = function  validatePasswo(password:string): Promise<boolean>{
-    const{ password_hash} = this;
-    return bcrypt.compare(password, password_hash);
+  const { id, username } : TokenPayload = this;
+  return generate({ user: { id, username } });
+};
 
-  }
-  export default User;
+User.prototype.validatePassword = function validatePassword(password: string): Promise<boolean> {
+  const { password_hash } = this;
+  return bcrypt.compare(password, password_hash);
+};
+
+export default User;

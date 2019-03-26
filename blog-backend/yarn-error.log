@@ -1,30 +1,20 @@
 Arguments: 
-  /usr/local/Cellar/node/11.10.0/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add sequelize@3.30.2 - 4
+  /Users/songminseok/.nvm/versions/node/v8.15.1/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js
 
 PATH: 
-  /Users/songminseok/.rvm/gems/ruby-2.5.0/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0@global/bin:/Users/songminseok/.rvm/rubies/ruby-2.5.0/bin:/usr/local/Cellar/node/11.10.0/bin:/Users/songminseok/.nvm/versions/node/v11.10.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/deployd/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0@global/bin:/Users/songminseok/.rvm/rubies/ruby-2.5.0/bin:/usr/local/Cellar/node/11.10.0/bin:/usr/local/mongodb/bin:/Users/songminseok/.rvm/bin:/usr/local/mongodb/bin
+  /Users/songminseok/.nvm/versions/node/v8.15.1/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0@global/bin:/Users/songminseok/.rvm/rubies/ruby-2.5.0/bin:/usr/local/Cellar/node/11.10.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/deployd/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0@global/bin:/Users/songminseok/.rvm/rubies/ruby-2.5.0/bin:/usr/local/Cellar/node/11.10.0/bin:/usr/local/mongodb/bin:/Users/songminseok/.rvm/bin:/usr/local/mongodb/bin
 
 Yarn version: 
   1.13.0
 
 Node version: 
-  11.10.0
+  8.15.1
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/-: Not found
-      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:66255:18)
-      at Request.self.callback (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:129397:22)
-      at Request.emit (events.js:197:13)
-      at Request.<anonymous> (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:130369:10)
-      at Request.emit (events.js:197:13)
-      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:130291:12)
-      at Object.onceWrapper (events.js:285:13)
-      at IncomingMessage.emit (events.js:202:15)
-      at endReadableNT (_stream_readable.js:1129:12)
-      at processTicksAndRejections (internal/process/next_tick.js:76:17)
+  Error: EACCES: permission denied, unlink '/Users/songminseok/Desktop/workspace/blog/blog-backend/node_modules/node-pre-gyp/node_modules/nopt/.npmignore'
 
 npm manifest: 
   {
@@ -33,38 +23,46 @@ npm manifest:
     "description": "Serverless webpack example using ecma script",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "dev": "NODE_PATH=src APP_ENV=local nodemon --inspect src/local --exec babel-node --plugins transform-es2015-modules-commonjs,transform-object-rest-spread --presets flow",
+      "dev": "NODE_PATH=src APP_ENV=local nodemon --inspect src/local --exec babel-node --plugins transform-es2015-modules-commonjs,transform-object-rest-spread, transform-async-to-generator --presets flow",
       "deploy:dev": "sls deploy --stage dev"
     },
     "devDependencies": {
       "babel-core": "^6.25.0",
       "babel-eslint": "^8.0.3",
       "babel-loader": "^7.1.1",
+      "babel-plugin-transform-async-to-generator": "^6.24.1",
       "babel-plugin-transform-runtime": "^6.23.0",
       "babel-polyfill": "^6.23.0",
       "babel-preset-env": "^1.6.0",
+      "babel-preset-es2015-node6": "^0.4.0",
       "babel-preset-flow": "^6.23.0",
       "eslint": "^4.12.1",
       "eslint-config-airbnb-base": "^12.1.0",
       "eslint-plugin-flowtype": "^2.39.1",
       "eslint-plugin-import": "^2.8.0",
       "flow-bin": "^0.60.1",
+      "shebang-loader": "^0.0.1",
+      "pg-hstore": "^2.3.2",
+      "pg-native": "^2.2.0",
+      "tedious": "^2.1.5",
       "serverless-webpack": "^3.1.1",
       "webpack": "^3.3.0"
     },
     "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
     "license": "MIT",
     "dependencies": {
+      "aws-sdk": "^2.427.0",
       "babel-plugin-transform-object-rest-spread": "^6.26.0",
-      "bcrypt": "^3.0.4",
+      "bcryptjs": "^3.0.4",
       "dotenv": "^7.0.0",
       "joi": "^14.3.1",
       "jsonwebtoken": "^8.5.0",
       "koa": "^2.4.1",
       "koa-bodyparser": "^4.2.1",
       "koa-router": "^7.3.0",
-      "nodemon": "^1.12.1",
-      "sequelize": "^5.1.0",
+      "lodash": "^4.17.11",
+      "nodemon": "^1.18.10",
+      "sequelize": "^4.26.0",
       "sequelize-cockroachdb": "^1.0.3",
       "serverless-http": "^1.5.2"
     }
@@ -288,7 +286,7 @@ Lockfile:
     dependencies:
       color-convert "^1.9.0"
   
-  any-promise@^1.1.0, any-promise@^1.3.0:
+  any-promise@^1.1.0:
     version "1.3.0"
     resolved "https://registry.yarnpkg.com/any-promise/-/any-promise-1.3.0.tgz#abc6afeedcea52e809cdc0376aed3ce39635d17f"
     integrity sha1-q8av7tzqUugJzcA3au0845Y10X8=
@@ -409,6 +407,21 @@ Lockfile:
     version "2.1.2"
     resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
     integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
+  
+  aws-sdk@^2.427.0:
+    version "2.427.0"
+    resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.427.0.tgz#74c3d7d3d57229ea07eb19232a9310b3b775ddf6"
+    integrity sha512-NpFNZa7Wt9fQ8hRLt40OD1ii3qnIhUkpXH4fMSjXP2YqGxCYAHYRj2yARN86YJKCMH566+QobTRyPjtgEWmMKA==
+    dependencies:
+      buffer "4.9.1"
+      events "1.1.1"
+      ieee754 "1.1.8"
+      jmespath "0.15.0"
+      querystring "0.2.0"
+      sax "1.2.1"
+      url "0.10.3"
+      uuid "3.3.2"
+      xml2js "0.4.19"
   
   babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
     version "6.26.0"
@@ -631,7 +644,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/babel-plugin-syntax-trailing-function-commas/-/babel-plugin-syntax-trailing-function-commas-6.22.0.tgz#ba0360937f8d06e40180a43fe0d5616fff532cf3"
     integrity sha1-ugNgk3+NBuQBgKQ/4NVhb/9TLPM=
   
-  babel-plugin-transform-async-to-generator@^6.22.0:
+  babel-plugin-transform-async-to-generator@^6.22.0, babel-plugin-transform-async-to-generator@^6.24.1:
     version "6.24.1"
     resolved "https://registry.yarnpkg.com/babel-plugin-transform-async-to-generator/-/babel-plugin-transform-async-to-generator-6.24.1.tgz#6536e378aff6cb1d5517ac0e40eb3e9fc8d08761"
     integrity sha1-ZTbjeK/2yx1VF6wOQOs+n8jQh2E=
@@ -688,7 +701,7 @@ Lockfile:
       babel-runtime "^6.22.0"
       babel-template "^6.24.1"
   
-  babel-plugin-transform-es2015-destructuring@^6.23.0:
+  babel-plugin-transform-es2015-destructuring@^6.23.0, babel-plugin-transform-es2015-destructuring@^6.6.5:
     version "6.23.0"
     resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-destructuring/-/babel-plugin-transform-es2015-destructuring-6.23.0.tgz#997bb1f1ab967f682d2b0876fe358d60e765c56d"
     integrity sha1-mXux8auWf2gtKwh2/jWNYOdlxW0=
@@ -710,7 +723,7 @@ Lockfile:
     dependencies:
       babel-runtime "^6.22.0"
   
-  babel-plugin-transform-es2015-function-name@^6.22.0:
+  babel-plugin-transform-es2015-function-name@^6.22.0, babel-plugin-transform-es2015-function-name@^6.5.0:
     version "6.24.1"
     resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-function-name/-/babel-plugin-transform-es2015-function-name-6.24.1.tgz#834c89853bc36b1af0f3a4c5dbaa94fd8eacaa8b"
     integrity sha1-g0yJhTvDaxrw86TF26qU/Y6sqos=
@@ -735,7 +748,7 @@ Lockfile:
       babel-runtime "^6.22.0"
       babel-template "^6.24.1"
   
-  babel-plugin-transform-es2015-modules-commonjs@^6.23.0, babel-plugin-transform-es2015-modules-commonjs@^6.24.1:
+  babel-plugin-transform-es2015-modules-commonjs@^6.23.0, babel-plugin-transform-es2015-modules-commonjs@^6.24.1, babel-plugin-transform-es2015-modules-commonjs@^6.7.4:
     version "6.26.2"
     resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-modules-commonjs/-/babel-plugin-transform-es2015-modules-commonjs-6.26.2.tgz#58a793863a9e7ca870bdc5a881117ffac27db6f3"
     integrity sha512-CV9ROOHEdrjcwhIaJNBGMBCodN+1cfkwtM1SbUHmvyy35KGT7fohbpOxkE2uLz1o6odKK2Ck/tz47z+VqQfi9Q==
@@ -771,7 +784,7 @@ Lockfile:
       babel-helper-replace-supers "^6.24.1"
       babel-runtime "^6.22.0"
   
-  babel-plugin-transform-es2015-parameters@^6.23.0:
+  babel-plugin-transform-es2015-parameters@^6.23.0, babel-plugin-transform-es2015-parameters@^6.8.0:
     version "6.24.1"
     resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-parameters/-/babel-plugin-transform-es2015-parameters-6.24.1.tgz#57ac351ab49caf14a97cd13b09f66fdf0a625f2b"
     integrity sha1-V6w1GrScrxSpfNE7CfZv3wpiXys=
@@ -922,6 +935,16 @@ Lockfile:
       invariant "^2.2.2"
       semver "^5.3.0"
   
+  babel-preset-es2015-node6@^0.4.0:
+    version "0.4.0"
+    resolved "https://registry.yarnpkg.com/babel-preset-es2015-node6/-/babel-preset-es2015-node6-0.4.0.tgz#f8893f81b6533747924c657348867bd63b4f9dc2"
+    integrity sha1-+Ik/gbZTN0eSTGVzSIZ71jtPncI=
+    dependencies:
+      babel-plugin-transform-es2015-destructuring "^6.6.5"
+      babel-plugin-transform-es2015-function-name "^6.5.0"
+      babel-plugin-transform-es2015-modules-commonjs "^6.7.4"
+      babel-plugin-transform-es2015-parameters "^6.8.0"
+  
   babel-preset-flow@^6.23.0:
     version "6.23.0"
     resolved "https://registry.yarnpkg.com/babel-preset-flow/-/babel-preset-flow-6.23.0.tgz#e71218887085ae9a24b5be4169affb599816c49d"
@@ -1045,7 +1068,7 @@ Lockfile:
       readable-stream "^2.3.5"
       safe-buffer "^5.1.1"
   
-  bluebird@^3.4.6, bluebird@^3.5.0, bluebird@^3.5.3:
+  bluebird@^3.4.6, bluebird@^3.5.0:
     version "3.5.3"
     resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.3.tgz#7d01c6f9616c9a51ab0f8c549a79dfe6ec33efa7"
     integrity sha512-/qKPUQlaW1OyR51WeCPBvRnAlnZFUJkCSG5HzGnuIqhgyJtF+T94lFnn33eiazjRm2LAHVy2guNnaq48X9SJuw==
@@ -1207,7 +1230,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
     integrity sha1-JuYe0UIvtw3ULm42cp7VHYVf6Nk=
   
-  buffer@^4.3.0:
+  buffer@4.9.1, buffer@^4.3.0:
     version "4.9.1"
     resolved "https://registry.yarnpkg.com/buffer/-/buffer-4.9.1.tgz#6d1bb601b07a4efced97094132093027c95bc298"
     integrity sha1-bRu2AbB6TvztlwlBMgkwJ8lbwpg=
@@ -1688,13 +1711,6 @@ Lockfile:
     dependencies:
       ms "^2.1.1"
   
-  debug@^4.1.1:
-    version "4.1.1"
-    resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
-    integrity sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
-    dependencies:
-      ms "^2.1.1"
-  
   debug@~3.1.0:
     version "3.1.0"
     resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
@@ -1758,11 +1774,6 @@ Lockfile:
     version "1.1.2"
     resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
     integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
-  
-  depd@^2.0.0:
-    version "2.0.0"
-    resolved "https://registry.yarnpkg.com/depd/-/depd-2.0.0.tgz#b696163cc757560d09cf22cc8fad1571b79e76df"
-    integrity sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==
   
   des.js@^1.0.0:
     version "1.0.0"
@@ -2155,6 +2166,11 @@ Lockfile:
     dependencies:
       d "1"
       es5-ext "~0.10.14"
+  
+  events@1.1.1:
+    version "1.1.1"
+    resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
+    integrity sha1-nr23Y1rQmccNzEwqH1AEKI6L2SQ=
   
   events@^3.0.0:
     version "3.0.0"
@@ -2626,6 +2642,11 @@ Lockfile:
     dependencies:
       safer-buffer ">= 2.1.2 < 3"
   
+  ieee754@1.1.8:
+    version "1.1.8"
+    resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
+    integrity sha1-vjPUCsEO8ZJnAfbwii2G+/0a0+Q=
+  
   ieee754@^1.1.4:
     version "1.1.12"
     resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.12.tgz#50bf24e5b9c8bb98af4964c941cdb0918da7b60b"
@@ -2972,6 +2993,11 @@ Lockfile:
     version "3.0.1"
     resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
     integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
+  
+  jmespath@0.15.0:
+    version "0.15.0"
+    resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
+    integrity sha1-o/Iiqarp+Wb10nx5ZRDigJF2Qhc=
   
   joi@^14.3.1:
     version "14.3.1"
@@ -3486,14 +3512,14 @@ Lockfile:
     dependencies:
       minimist "0.0.8"
   
-  moment-timezone@^0.5.14, moment-timezone@^0.5.21:
+  moment-timezone@^0.5.14:
     version "0.5.23"
     resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.23.tgz#7cbb00db2c14c71b19303cb47b0fb0a6d8651463"
     integrity sha512-WHFH85DkCfiNMDX5D3X7hpNH3/PUhjTGcD0U1SgfBGZxJ3qUmJh5FdvaFjcClxOvB3rzdfj4oRffbI38jEnC1w==
     dependencies:
       moment ">= 2.9.0"
   
-  "moment@>= 2.9.0", moment@^2.20.0, moment@^2.24.0:
+  "moment@>= 2.9.0", moment@^2.20.0:
     version "2.24.0"
     resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
     integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -3625,7 +3651,7 @@ Lockfile:
       semver "^5.3.0"
       tar "^4"
   
-  nodemon@^1.12.1:
+  nodemon@^1.18.10:
     version "1.18.10"
     resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.18.10.tgz#3ba63f64eb4c283cf3e4f75f30817e9d4f393afe"
     integrity sha512-we51yBb1TfEvZamFchRgcfLbVYgg0xlGbyXmOtbBzDwxwgewYS/YbZ5tnlnsH51+AoSTTsT3A2E/FloUbtH8cQ==
@@ -4365,13 +4391,6 @@ Lockfile:
       bluebird "^3.4.6"
       debug "^2.6.9"
   
-  retry-as-promised@^3.1.0:
-    version "3.2.0"
-    resolved "https://registry.yarnpkg.com/retry-as-promised/-/retry-as-promised-3.2.0.tgz#769f63d536bec4783549db0777cb56dadd9d8543"
-    integrity sha512-CybGs60B7oYU/qSQ6kuaFmRd9sTZ6oXSc0toqePvV74Ac6/IFZSI1ReFQmtCN+uvW1Mtqdwpvt/LGOiCBAY2Mg==
-    dependencies:
-      any-promise "^1.3.0"
-  
   right-align@^0.1.1:
     version "0.1.3"
     resolved "https://registry.yarnpkg.com/right-align/-/right-align-0.1.3.tgz#61339b722fe6a3515689210d24e14c96148613ef"
@@ -4430,7 +4449,12 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
     integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
   
-  sax@^1.2.4:
+  sax@1.2.1:
+    version "1.2.1"
+    resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
+    integrity sha1-e45lYZCyKOgaZq6nSEgNgozS03o=
+  
+  sax@>=0.6.0, sax@^1.2.4:
     version "1.2.4"
     resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
     integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
@@ -4462,14 +4486,7 @@ Lockfile:
       semver "^5.3.0"
       sequelize "3.30.2 - 4"
   
-  sequelize-pool@^1.0.2:
-    version "1.0.2"
-    resolved "https://registry.yarnpkg.com/sequelize-pool/-/sequelize-pool-1.0.2.tgz#89c767882bbdb8a41dac66922ed9820939a5401e"
-    integrity sha512-VMKl/gCCdIvB1gFZ7p+oqLFEyZEz3oMMYjkKvfEC7GoO9bBcxmfOOU9RdkoltfXGgBZFigSChihRly2gKtsh2w==
-    dependencies:
-      bluebird "^3.5.3"
-  
-  "sequelize@3.30.2 - 4":
+  "sequelize@3.30.2 - 4", sequelize@^4.26.0:
     version "4.43.0"
     resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.43.0.tgz#41c36c7684b0ea23ca7be1c3af3d65f2309a4ca6"
     integrity sha512-GkwGFVREKBf/ql6W6RXwXy1fzb/HOk0lmOBbcQrJMvJtB65Jfg7CUh+sENh0deuWk5s79JedgZJ/yEjvtzHXaQ==
@@ -4491,28 +4508,6 @@ Lockfile:
       uuid "^3.2.1"
       validator "^10.4.0"
       wkx "^0.4.1"
-  
-  sequelize@^5.1.0:
-    version "5.1.0"
-    resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-5.1.0.tgz#b0f4edfd6dd1a1aaa7cf7e9febd0685475d18c97"
-    integrity sha512-LmjEAedMTItkIx0mcBfXVmdkkIQOc+1reuv+UpqSADGvQofZ4Sn9ElUBE8egLgCK4oWjy1Ybsju+YDAJpCv1ww==
-    dependencies:
-      bluebird "^3.5.0"
-      cls-bluebird "^2.1.0"
-      debug "^4.1.1"
-      depd "^2.0.0"
-      dottie "^2.0.0"
-      inflection "1.12.0"
-      lodash "^4.17.11"
-      moment "^2.24.0"
-      moment-timezone "^0.5.21"
-      retry-as-promised "^3.1.0"
-      semver "^5.6.0"
-      sequelize-pool "^1.0.2"
-      toposort-class "^1.0.1"
-      uuid "^3.2.1"
-      validator "^10.11.0"
-      wkx "^0.4.6"
   
   serverless-http@^1.5.2:
     version "1.9.1"
@@ -5172,6 +5167,14 @@ Lockfile:
     dependencies:
       prepend-http "^1.0.1"
   
+  url@0.10.3:
+    version "0.10.3"
+    resolved "https://registry.yarnpkg.com/url/-/url-0.10.3.tgz#021e4d9c7705f21bbf37d03ceb58767402774c64"
+    integrity sha1-Ah5NnHcF8hu/N9A861h2dAJ3TGQ=
+    dependencies:
+      punycode "1.3.2"
+      querystring "0.2.0"
+  
   url@^0.11.0:
     version "0.11.0"
     resolved "https://registry.yarnpkg.com/url/-/url-0.11.0.tgz#3838e97cfc60521eb73c525a8e55bfdd9e2e28f1"
@@ -5204,7 +5207,7 @@ Lockfile:
     dependencies:
       inherits "2.0.3"
   
-  uuid@^3.2.1:
+  uuid@3.3.2, uuid@^3.2.1:
     version "3.3.2"
     resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
     integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
@@ -5224,7 +5227,7 @@ Lockfile:
       spdx-correct "^3.0.0"
       spdx-expression-parse "^3.0.0"
   
-  validator@^10.11.0, validator@^10.4.0:
+  validator@^10.4.0:
     version "10.11.0"
     resolved "https://registry.yarnpkg.com/validator/-/validator-10.11.0.tgz#003108ea6e9a9874d31ccc9e5006856ccd76b228"
     integrity sha512-X/p3UZerAIsbBfN/IwahhYaBbY68EN/UQBWHtsbXGT5bfrH/p4NQzUCG1kF/rtKaNpnJ7jAu6NGTdSNtyNIXMw==
@@ -5317,7 +5320,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
     integrity sha1-VDjNLqk7IC76Ohn+iIeu58lPnJ0=
   
-  wkx@^0.4.1, wkx@^0.4.6:
+  wkx@^0.4.1:
     version "0.4.6"
     resolved "https://registry.yarnpkg.com/wkx/-/wkx-0.4.6.tgz#228ab592e6457382ea6fb79fc825058d07fce523"
     integrity sha512-LHxXlzRCYQXA9ZHgs8r7Gafh0gVOE8o3QmudM1PIkOdkXXjW7Thcl+gb2P2dRuKgW8cqkitCRZkkjtmWzpHi7A==
@@ -5367,6 +5370,19 @@ Lockfile:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
     integrity sha1-SWsswQnsqNus/i3HK2A8F8WHCtQ=
+  
+  xml2js@0.4.19:
+    version "0.4.19"
+    resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.19.tgz#686c20f213209e94abf0d1bcf1efaa291c7827a7"
+    integrity sha512-esZnJZJOiJR9wWKMyuvSE1y6Dq5LCuJanqhxslH2bxM6duahNZ+HMpCLhBQGZkbX6xRf8x1Y2eJlgt2q3qo49Q==
+    dependencies:
+      sax ">=0.6.0"
+      xmlbuilder "~9.0.1"
+  
+  xmlbuilder@~9.0.1:
+    version "9.0.7"
+    resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-9.0.7.tgz#132ee63d2ec5565c557e20f4c22df9aca686b10d"
+    integrity sha1-Ey7mPS7FVlxVfiD0wi35rKaGsQ0=
   
   xtend@^4.0.0:
     version "4.0.1"
