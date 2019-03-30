@@ -8,10 +8,12 @@ const HomeTemplate = () => {
             <Responsive className="block">
                 <div className="left-text">
                  <div>
-                        <h1>언제 front end 를 잘할수 있을까</h1>
+                        <h1>SONGC는 대체 <br />어디서 글을 작성 해야하나...</h1>
                         <div className="description">
-                            <p>계속 계속 하면는</p>
-                            <p>길 잃은 개발자를 위한 템플릿</p>
+                            <p>이제부턴 SONGCSONGC!</p>
+                            <p>길 잃은 글 쓰고픈 개발자들을 취향저격할 글쓰기 플랫폼이 바로 요기에! <br />
+                            마크다운, 코드 하이라이팅 등... 그만 고민하고 지금 시작하자.
+                            </p>
                         </div>
                  </div>
                 </div>
@@ -19,6 +21,9 @@ const HomeTemplate = () => {
                     <div className="black-box">
                         제이름은 송민석 입니다.
                     </div>
+                 <div className="register-button">
+                    지금 시작하기
+                 </div>
                 </div>
             </Responsive>
         </div>
