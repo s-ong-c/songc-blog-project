@@ -8,7 +8,7 @@ export const generate = (payload: any, options: any): Promise<string> => {
   
   return new Promise((resolve, reject) => {
     jwt.sign(payload, secret, {
-      issuer: 'velog.io',
+      issuer: 'songc.io',
       expiresIn: '7d',
       ...options,
     }, (err, token) => {
