@@ -1,20 +1,20 @@
 Arguments: 
-  /Users/songminseok/.nvm/versions/node/v8.15.1/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js
+  /usr/local/Cellar/node/11.10.0/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add mailgun-js
 
 PATH: 
-  /Users/songminseok/.nvm/versions/node/v8.15.1/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0@global/bin:/Users/songminseok/.rvm/rubies/ruby-2.5.0/bin:/usr/local/Cellar/node/11.10.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/deployd/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0@global/bin:/Users/songminseok/.rvm/rubies/ruby-2.5.0/bin:/usr/local/Cellar/node/11.10.0/bin:/usr/local/mongodb/bin:/Users/songminseok/.rvm/bin:/usr/local/mongodb/bin
+  /Users/songminseok/.rvm/gems/ruby-2.5.0/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0@global/bin:/Users/songminseok/.rvm/rubies/ruby-2.5.0/bin:/usr/local/Cellar/node/11.10.0/bin:/Users/songminseok/.nvm/versions/node/v11.10.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/deployd/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0@global/bin:/Users/songminseok/.rvm/rubies/ruby-2.5.0/bin:/usr/local/Cellar/node/11.10.0/bin:/usr/local/mongodb/bin:/Users/songminseok/.rvm/bin:/usr/local/mongodb/bin
 
 Yarn version: 
   1.13.0
 
 Node version: 
-  8.15.1
+  11.10.0
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/songminseok/Desktop/workspace/blog/blog-backend/node_modules/node-pre-gyp/node_modules/nopt/.npmignore'
+  Error: EACCES: permission denied, mkdir '/Users/songminseok/Desktop/workspace/blog/blog-backend/node_modules/agent-base'
 
 npm manifest: 
   {
@@ -23,13 +23,14 @@ npm manifest:
     "description": "Serverless webpack example using ecma script",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "dev": "NODE_PATH=src APP_ENV=local nodemon --inspect src/local --exec babel-node --plugins transform-es2015-modules-commonjs,transform-object-rest-spread, transform-async-to-generator --presets flow",
+      "dev": "NODE_PATH=src APP_ENV=local nodemon --inspect src/local --exec babel-node --plugins transform-es2015-modules-commonjs,transform-object-rest-spread,transform-async-to-generator --presets flow",
       "deploy:dev": "sls deploy --stage dev"
     },
     "devDependencies": {
       "babel-core": "^6.25.0",
       "babel-eslint": "^8.0.3",
       "babel-loader": "^7.1.1",
+      "babel-plugin-shebang": "^0.0.0",
       "babel-plugin-transform-async-to-generator": "^6.24.1",
       "babel-plugin-transform-runtime": "^6.23.0",
       "babel-polyfill": "^6.23.0",
@@ -41,29 +42,30 @@ npm manifest:
       "eslint-plugin-flowtype": "^2.39.1",
       "eslint-plugin-import": "^2.8.0",
       "flow-bin": "^0.60.1",
-      "shebang-loader": "^0.0.1",
       "pg-hstore": "^2.3.2",
       "pg-native": "^2.2.0",
-      "tedious": "^2.1.5",
+      "serverless-dotenv": "^1.0.0-beta.2",
       "serverless-webpack": "^3.1.1",
+      "shebang-loader": "^0.0.1",
+      "tedious": "^2.1.5",
       "webpack": "^3.3.0"
     },
     "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
     "license": "MIT",
     "dependencies": {
-      "aws-sdk": "^2.427.0",
+      "aws-sdk": "^2.169.0",
       "babel-plugin-transform-object-rest-spread": "^6.26.0",
-      "bcryptjs": "^3.0.4",
-      "dotenv": "^7.0.0",
-      "joi": "^14.3.1",
-      "jsonwebtoken": "^8.5.0",
+      "bcryptjs": "^2.4.3",
+      "dotenv": "^4.0.0",
+      "joi": "^13.0.2",
+      "jsonwebtoken": "^8.1.0",
       "koa": "^2.4.1",
-      "koa-bodyparser": "^4.2.1",
+      "koa-bodyparser": "^4.2.0",
       "koa-router": "^7.3.0",
-      "lodash": "^4.17.11",
-      "nodemon": "^1.18.10",
+      "lodash": "^4.17.4",
+      "nodemon": "^1.12.1",
       "sequelize": "^4.26.0",
-      "sequelize-cockroachdb": "^1.0.3",
+      "sequelize-cockroachdb": "^1.0.2",
       "serverless-http": "^1.5.2"
     }
   }
