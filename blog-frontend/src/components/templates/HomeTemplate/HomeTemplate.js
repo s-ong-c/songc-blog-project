@@ -2,7 +2,7 @@ import React from 'react';
 import './HomeTemplate.scss';
 import Responsive from '../../common/Responsive';
 
-const HomeTemplate = () => {
+const HomeTemplate = ({ form }) => {
     return (
         <div className="home-template">
             <Responsive className="block">
@@ -19,7 +19,8 @@ const HomeTemplate = () => {
                 </div>
                 <div className="right-form">
                     <div className="black-box">
-                        제이름은 송민석 입니다.
+                        <h2><span className="brand">SONGC</span> 로그인 또는 회원가입</h2>
+                        {form}
                     </div>
                  <div className="register-button">
                     지금 시작하기

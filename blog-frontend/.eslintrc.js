@@ -24,6 +24,7 @@ module.exports = {
     "react/self-closing-comp": 1,
     "lines-between-class-members":0,
     "react/jsx-indent":0,
+    "react/jsx-indent-props":0,
     "indent":0,
     "no-multi-spaces":0,
     "import/newline-after-import":0,
@@ -31,6 +32,7 @@ module.exports = {
     "react/jsx-equals-spacin":0,
     "react/jsx-equals-spacing":0,
     "comma-spacing": 0,
+    "react/require-default-props": 0,
     "react/jsx-one-expression-per-line":0,
     "react/prefer-stateless-function": 0,
     "react/default-props-match-prop-types": 0
