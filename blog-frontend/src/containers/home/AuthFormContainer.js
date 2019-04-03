@@ -5,19 +5,42 @@ import type { State} from 'store';
 import AuthFrom from '../../components/home/AuthForm';
 import { AuthActions } from '../../store/actionCreators';
 
-class AuthFormContainer extends Component {
+type Props = {
+    email : string,
+    sentEmail : boolean,
+}
+class AuthFormContainer extends Component<Props> {
+    onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        AuthActions.setEmailInput(value);
+    }
+    onSendVerification = async (): Promise<*> => {
+        const { email} = this.props;
+        try {
+            await AuthActions.sendVerificationEmail(email);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     render() {
+        const { onChange, onSendVerification } = this;
+        const { email, sentEmail}  = this.props;
         return (
-            <div>
-                <AuthFrom />
-            </div>
+                <AuthFrom 
+                    email ={email}
+                    sentEmail= {sentEmail}
+                    onChange={onChange}
+                    onSendVerification={onSendVerification}
+                />
         );
     }
 }
 
 export default connect(
-    (state: State) => ({
-        email: state.auth.email,
+    ({ auth }: State) => ({
+        email: auth.email,
+        sentEmail: auth.sentEmail,
     }),
-    dispatch => ({}),
+    () => ({}),
 )(AuthFormContainer);

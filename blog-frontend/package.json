@@ -126,5 +126,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "flow-bin": "^0.95.1"
-  }
+  },
+  "proxy": "http://localhost:4000/"
 }

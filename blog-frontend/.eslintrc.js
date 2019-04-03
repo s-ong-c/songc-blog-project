@@ -37,6 +37,8 @@ module.exports = {
     "react/jsx-one-expression-per-line":0,
     "react/prefer-stateless-function": 0,
     "no-underscore-dangle":0,
-    "react/default-props-match-prop-types": 0
+    "react/default-props-match-prop-types": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0
   }
 }

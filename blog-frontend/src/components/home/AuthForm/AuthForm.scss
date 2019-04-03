@@ -3,6 +3,19 @@
     margin-top: 2rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    .sent-email{
+        display: flex;
+        align-items: center;
+        background: $oc-green-2;
+        color: $oc-green-9;
+        padding: 1rem;
+        svg{
+            font-size: 1.5rem;
+        }
+        .text{
+            margin-left: 0.5rem;
+        }
+    }
     .input-with-button{
         display: flex;
         input{
