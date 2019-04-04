@@ -39,6 +39,7 @@ module.exports = {
     "no-underscore-dangle":0,
     "react/default-props-match-prop-types": 0,
     "jsx-a11y/click-events-have-key-events": 0,
-    "jsx-a11y/no-static-element-interactions": 0
+    "jsx-a11y/no-static-element-interactions": 0,
+    "import/no-useless-path-segments":0
   }
 }

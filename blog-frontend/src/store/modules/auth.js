@@ -14,7 +14,7 @@ export const actionCreators = {
 
 export type AuthActionCreators = {
     setEmailInput(value: string): any,
-    sendVerificationEmail(email: string): Promise<*>,
+    sendVerificationEmail(email: string): any,
 }
 
 export type Auth = {
