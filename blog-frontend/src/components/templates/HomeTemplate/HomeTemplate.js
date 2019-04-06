@@ -1,6 +1,7 @@
 import React from 'react';
-import './HomeTemplate.scss';
 import Responsive from '../../common/Responsive';
+import './HomeTemplate.scss';
+
 
 const HomeTemplate = ({ form }) => {
     return (
