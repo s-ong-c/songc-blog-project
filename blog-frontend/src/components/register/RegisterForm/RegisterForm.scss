@@ -1,0 +1,42 @@
+@import 'utils';
+
+.register-form {
+    .form-head {
+        background: #6eb094;
+        padding: 1.5rem;
+    h2 {
+        margin:0;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color:white;
+        }
+    }
+    .form-contents{
+        padding: 3rem;
+        background: white;
+        .agreement{
+            margin-top:2rem;
+            color:$oc-gray-6;
+            font-size: 0.85rem;
+            span{
+                font-weight: 600;
+            }
+        }
+        .icon-button{
+            margin-top: 1rem;
+            background: $oc-teal-8;
+            color:white;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            font-size:1rem;
+            svg{
+                margin-left: 0.5rem;
+            }
+
+        }
+    }
+}

@@ -1,12 +1,17 @@
 // @flow
 import React, { Component } from 'react';
+import type { Node } from 'react';
 import BackgroundColor from '../../../components/common/BackgroundColor';
 import Responsive from '../../common/Responsive';
+
 import './RegisterTemplate.scss';
 
-type Props = {};
+type Props = {
+    form : Node,
+};
 class RegisterTemplate extends Component<Props> {
     render() {
+        const { form } = this.props;
         return (
             <div className="register-template">
                 <BackgroundColor color="#495057"/>
@@ -20,7 +25,7 @@ class RegisterTemplate extends Component<Props> {
                 </Responsive>
                 <section className="reset">
                     <div className="register-card">
-                     hello
+                        { form}
                     </div>
                 </section>
             </div>
