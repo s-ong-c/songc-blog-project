@@ -16,11 +16,21 @@
         border: none;
         border-top: 0.5rem;
         border-bottom: 1px solid $oc-gray-4;
-        padding: 0.5rem;
+        padding-bottom: 0.5rem;
         font-weight: 300;
         &:focus{
             border-bottom: 1px solid $oc-teal-8;
         }
+    }
+    .lock-wrapper{
+        position: relative;
+        cursor: not-allowed;
+    }
+    .lock{
+        position: absolute;
+        right: 0.5rem;
+        top: -1.85rem;
+        color: $oc-gray-7;
     }
     & + & {
         margin-top: 2rem;

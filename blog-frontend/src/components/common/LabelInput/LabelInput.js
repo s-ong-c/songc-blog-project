@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import cx from 'classnames';
+import { MdLockOutline } from 'react-icons/md';
 import './LabelInput.scss';
 
 type Props = {
@@ -16,6 +17,7 @@ const LabelInput = ({ label, value, limit, required, disabled, ...rest }: Props)
         <div className={cx('register label-input', {disabled})}>
             <div className="label">{ label }{required && <span>*</span>}</div>
             <input value={value} {...rest} disabled={disabled} />
+            { disabled && <div className="lock-wrapper"><MdLockOutline className="lock" /></div>}
             { limit && (
                 <div className="limit">
                     { !value ? 0 : value.length } / { limit}

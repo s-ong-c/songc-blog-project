@@ -18,12 +18,14 @@ const RegisterForm = () => {
              <div className="agreement">
                  다음 버튼을 누르면 <span>서비스 이용약관 </span>과  <span> 개인정보취급방침</span>에 동의하는 것을 인정합니다.
              </div>
-             <div className="icon-button">
-                <span>다음</span>
-                <MdArrowForward />
-             </div>
-          </div>
+             <div className="button-wrapper">
+                <div className="icon-button">
+                    <span>다음</span>
+                    <MdArrowForward />
+                </div>
+            </div>
         </div>
+     </div>
     );
 };
 

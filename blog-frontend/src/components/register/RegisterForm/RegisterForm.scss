@@ -3,7 +3,7 @@
 .register-form {
     .form-head {
         background: #6eb094;
-        padding: 1.5rem;
+        padding: 2rem;
     h2 {
         margin:0;
         font-size: 1.5rem;
@@ -15,26 +15,45 @@
         padding: 3rem;
         background: white;
         .agreement{
-            margin-top:2rem;
+            margin-top: 2rem;
             color:$oc-gray-6;
             font-size: 0.85rem;
             span{
                 font-weight: 600;
             }
         }
+        .button-wrapper{
+            display: flex;
+            justify-content: flex-end;
+
+        }
         .icon-button{
             margin-top: 1rem;
             background: $oc-teal-8;
             color:white;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            font-size:1rem;
+            padding: 0.75rem;
+            font-size:1.25rem;
+            line-height: 1.25rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all .15s ease-in;
+            cursor: pointer;
             svg{
                 margin-left: 0.5rem;
+                transition: transform .15s ease-in-out;
+            }
+            @include hover(){
+                @include material-shadow(2, 0.5);
+                background: $oc-teal-7;
+                svg{
+                    transform: translate(5px);
+                }
+
+            }
+            &:active{
+                background: $oc-teal-9;
             }
 
         }
