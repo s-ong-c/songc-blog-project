@@ -42,6 +42,7 @@ module.exports = {
     "jsx-a11y/no-static-element-interactions": 0,
     "import/no-useless-path-segments":0,
     "react/sort-comp":0,
-    "object-curly-newline":0
+    "object-curly-newline":0,
+    "react/no-unused-prop-types":0
   }
 }

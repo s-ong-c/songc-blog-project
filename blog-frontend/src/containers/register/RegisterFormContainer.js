@@ -1,15 +1,50 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import type { State} from 'store';
+import { AuthActions } from '../../store/actionCreators';
 import RegisterForm from '../../components/register/RegisterForm';
 
-type Props ={ };
+
+type Props = {
+    name: string,
+    email: string,
+    username: string,
+    shortBio: string
+  };
+
 class RegisterFormContainer extends Component<Props> {
+    onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
+        const { value, name} = e.target;
+        AuthActions.changeRegisterForm({
+            name, value,
+        });
+    }
     render() {
+        const { onChange } = this;
+        const { name, email, username, shortBio } = this.props;
+
         return (
-            <RegisterForm />
+            <RegisterForm 
+                onChange={onChange}
+                name={name}
+                email={email}
+                username={username}
+                shortBio={shortBio}
+            />
                 
         );
     }
 }
 
-export default RegisterFormContainer;
+export default connect(
+    ({ auth }: State) => {
+        const { registerForm} = auth;
+        const { name, email, username, shortBio } = registerForm;
+
+        return {
+            name, email, username, shortBio,
+        };
+    },
+    () => ({ }),
+)(RegisterFormContainer);
