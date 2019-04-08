@@ -17,7 +17,14 @@ const LabelInput = ({ label, value, limit, required, disabled, ...rest }: Props)
         <div className={cx('register label-input', {disabled})}>
             <div className="label">{ label }{required && <span>*</span>}</div>
             <input value={value} {...rest} disabled={disabled} />
-            { disabled && <div className="lock-wrapper"><MdLockOutline className="lock" /></div>}
+            { disabled && (
+                <div className="lock-wrapper">
+                    <div className="lock">
+                        <MdLockOutline />
+                    </div>
+                </div>
+            )
+            }
             { limit && (
                 <div className="limit">
                     { !value ? 0 : value.length } / { limit}

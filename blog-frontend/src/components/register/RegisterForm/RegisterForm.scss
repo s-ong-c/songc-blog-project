@@ -1,6 +1,11 @@
 @import 'utils';
 
 .register-form {
+    @include media("<=large"){
+        flex:1;
+        display: flex;
+        flex-direction: column;
+    }
     .form-head {
         background: #6eb094;
         padding: 2rem;
@@ -10,10 +15,22 @@
         font-weight: 400;
         color:white;
         }
+        @include media("<=large"){
+            padding: 1.15rem;
+            h2{
+                font-size:1.15rem;
+            }
+        }
+        
     }
     .form-contents{
         padding: 3rem;
         background: white;
+        @include media("<=large"){
+            padding: 1.5rem;
+            flex:1;
+            overflow-y:auto;
+        }
         .agreement{
             margin-top: 2rem;
             color:$oc-gray-6;

@@ -8,6 +8,9 @@
         span {
             color: $oc-red-5;
         }
+        @include media("<large"){
+            font-size:0.75rem;
+        }
     }
     input{
         width: 100%;
@@ -18,8 +21,15 @@
         border-bottom: 1px solid $oc-gray-4;
         padding-bottom: 0.5rem;
         font-weight: 300;
+        @include media("<large"){
+            font-size: 1rem;
+            padding-bottom: 0.35rem;
+        }
         &:focus{
             border-bottom: 1px solid $oc-teal-8;
+        }
+        &.disabled {
+            width: calc(100% - 3rem);
         }
     }
     .lock-wrapper{
@@ -27,9 +37,12 @@
         cursor: not-allowed;
     }
     .lock{
+        padding: 0.25rem;
+        padding-right: 0.5rem;
+        background: white;
         position: absolute;
-        right: 0.5rem;
-        top: -1.85rem;
+        right: 0rem;
+        top: -2.1rem;
         color: $oc-gray-7;
     }
     & + & {
