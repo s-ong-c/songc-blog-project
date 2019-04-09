@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/11.10.0/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add aws-sdk
+  /usr/local/Cellar/node/11.10.0/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js
 
 PATH: 
   /Users/songminseok/.rvm/gems/ruby-2.5.0/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0@global/bin:/Users/songminseok/.rvm/rubies/ruby-2.5.0/bin:/usr/local/Cellar/node/11.10.0/bin:/Users/songminseok/.nvm/versions/node/v11.10.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/deployd/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0/bin:/Users/songminseok/.rvm/gems/ruby-2.5.0@global/bin:/Users/songminseok/.rvm/rubies/ruby-2.5.0/bin:/usr/local/Cellar/node/11.10.0/bin:/usr/local/mongodb/bin:/Users/songminseok/.rvm/bin:/usr/local/mongodb/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, mkdir '/Users/songminseok/Desktop/workspace/blog/blog-backend/node_modules/watchpack/node_modules'
+  Error: EACCES: permission denied, unlink '/Users/songminseok/Desktop/workspace/blog/blog-backend/node_modules/@babel/code-frame/package.json'
 
 npm manifest: 
   {

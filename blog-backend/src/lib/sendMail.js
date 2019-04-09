@@ -1,50 +1,58 @@
 // @flow
 import AWS from 'aws-sdk';
+import striptags from 'striptags';
 
-const ses = new AWS.SES({region: 'us-east-1'});
+const ses = new AWS.SES({ region: 'us-east-1' });
 
 type EmailParams = {
-    to: string,
-    subject: string,
-    body: string,
-    from: string
-}
-const sendMail = ({
-    to,
-    subject,
-    body,
-    from,
-}: EmailParams): Promise<*>=> {
-    return new Promise((resolve, reject) => {
-        const params = {
-            Destination: {
-                ToAddresses: ['somony9292@gmail.com']
-              },
-              Message: {
-                Body: {
-                  Html: {
-                    Charset: 'UTF-8',
-                    Data:
-                      'This message body contains HTML formatting, like <a class="ulink" href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide" target="_blank">Amazon SES Developer Guide</a>.'
-                  },
-                  Text: {
-                    Charset: 'UTF-8',
-                    Data: 'This is the message body in text format.'
-                  }
-                },
-                Subject: {
-                  Charset: 'UTF-8',
-                  Data: subject,
-                
-                }
-              },
-              Source: 'SONGC <verification@songc.io>',
-        };
-        ses.sendMail(params, (err, data) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(data);
-        })
-    });
+  to: string | Array<string>,
+  subject: string,
+  body: string,
+  from: string
 };
+
+const sendMail = ({
+  to,
+  subject,
+  body,
+  from = 'SONGC <support@songc.io>',
+}: EmailParams): Promise<*> => {
+  return new Promise((resolve, reject) => {
+    const params = {
+      Destination: {
+        ToAddresses: (() => {
+          if (typeof to === 'string') {
+            return [to];
+          }
+          return to;
+        })(),
+      },
+      Message: {
+        Body: {
+          Html: {
+            Charset: 'UTF-8',
+            Data: body,
+          },
+          Text: {
+            Charset: 'UTF-8',
+            Data: striptags(body),
+          },
+        },
+        Subject: {
+          Charset: 'UTF-8',
+          Data: subject,
+        },
+      },
+      Source: from,
+    };
+
+    ses.sendEmail(params, (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(data);
+    });
+  });
+};
+
+export default sendMail;
