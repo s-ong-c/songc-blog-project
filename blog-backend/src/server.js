@@ -4,6 +4,8 @@ import bodyParser from 'koa-bodyparser'
 import serverless from 'serverless-http';
 import authToken from 'lib/middlewares/authToken';
 import router from './router';
+import db from 'database/db';
+import sync from 'database/sync';
 
 export default class Server {
   app: Koa;
@@ -11,8 +13,20 @@ export default class Server {
   constructor() {
     this.app = new Koa();
     this.middleware();
+    this.initializeDb();
   }
 
+  initializeDb(): void {
+    db.authenticate().then(
+      () => {
+        sync();
+        console.log('DB Connection has been established');
+      },
+      (err) => {
+        console.error('Unable to connect to the DB:', err);
+      },
+    );
+  }
   middleware(): void {
     const { app } = this;
     app.use(authToken);

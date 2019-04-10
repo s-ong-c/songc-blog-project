@@ -6,6 +6,7 @@ import sendMail from '../../lib/sendMail';
 import User from 'database/models/User';
 import UserProfile from 'database/models/UserProfile';
 import EmailAuth from 'database/models/EmailAuth';
+import { generate, decode } from 'lib/token';
 
 import type { UserModel} from 'database/models/User';
 import type { UserProfileModel} from 'database/models/UserProfile';
@@ -74,9 +75,12 @@ export const getCode = async (ctx: Context): Promise<*> => {
       return;
     }
     const { email } = auth;
+    
+    const registerToken = await generate({ email } , {expiresIn: '1h',subject: 'auth-register'});
 
     ctx.body = {
       email,
+      registerToken,
     };
 
     await auth.use();
@@ -87,20 +91,26 @@ export const getCode = async (ctx: Context): Promise<*> => {
 
 export const createLocalAccount = async (ctx: Context): Promise<*> => {
   type BodySchema = {
-    email: string,
-    password: string,
-    username: string
+    registerToken: string,
+    form: {
+      displayName: string,
+      username: string,
+      shortBio: string
+    }
   };
 
   const schema = Joi.object().keys({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
-    username: Joi.string().alphanum().min(3).max(20)
-      .required(),
+    registerToken: Joi.string().required(),
+    form: Joi.object().keys({
+      displayName: Joi.string().min(1).max(40),
+      username: Joi.string().alphanum().min(3).max(16)
+        .required(),
+      shortBio: Joi.string().max(140),
+    }).required(),
   });
 
   const result: any = Joi.validate(ctx.request.body, schema);
-
+  console.log(result);
   if (result.error) {
     ctx.status = 400;
     ctx.body = {
@@ -110,10 +120,29 @@ export const createLocalAccount = async (ctx: Context): Promise<*> => {
     return;
   }
 
-  const { email, password, username }: BodySchema = (ctx.request.body: any);
+  const {
+    registerToken,
+    form: {
+      username,
+      shortBio,
+      displayName,
+    },
+  }: BodySchema = (ctx.request.body: any);
+
+  let decoded = null;
 
   try {
-    const [emailExists, usernameExists] = await Promise.all([
+    decoded = await decode(registerToken);
+  } catch (e) {
+    ctx.status = 400;
+    ctx.body = {
+      name: 'INVALID_TOKEN',
+    };
+    return ;
+  }
+  const { email} = decoded;
+  try {
+      const [emailExists, usernameExists] = await Promise.all([
       User.findUser('email', email),
       User.findUser('username', username),
     ]);
@@ -131,16 +160,15 @@ export const createLocalAccount = async (ctx: Context): Promise<*> => {
   }
 
   try {
-    const hash = await User.crypt(password);
     const user:User = await User.build({
       username,
       email,
-      password_hash: hash,
     }).save();
 
-    const userProfile = await UserProfile.build({
+     await UserProfile.build({
       fk_user_id: user.id,
-
+      display_name: displayName,
+      short_bio: shortBio,
     }).save();
 
     const token: string = await user.generateToken();
@@ -155,6 +183,7 @@ export const createLocalAccount = async (ctx: Context): Promise<*> => {
         user: {
           id: user.id,
           username: user.username,
+          displayName,
         },
         token
       };
@@ -245,5 +274,10 @@ export const localLogin = async (ctx: Context): Promise<*> =>{
 };
 
 export const check = async (ctx: Context): Promise<*>=>{
-  ctx.body =ctx.user;
+  if (!ctx.user) {
+    ctx.status = 401;
+    return;
+  }
+  
+  ctx.body = ctx.user;
 }

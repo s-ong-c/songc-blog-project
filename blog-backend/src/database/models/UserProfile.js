@@ -12,8 +12,8 @@ export interface UserProfileModel {
 
 const UserProfile = db.define('user_profile', {
   id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV1,
     primaryKey: true,
   },
   /* foreignKey fk_user_id */
@@ -21,8 +21,15 @@ const UserProfile = db.define('user_profile', {
   short_bio: Sequelize.STRING,
   thumbnail: Sequelize.STRING,
 });
+UserProfile.associate = function associate() {
+  UserProfile.belongsTo(User, { foreignKey: 'fk_user_id', onDelete: 'restrict', onUpdate: 'restrict' });
+};
 
-UserProfile.belongsTo(User, { foreignKey: 'fk_user_id', onDelete: 'restrict', onUpdate: 'restrict' });
-UserProfile.sync();
-
+UserProfile.findByUserId = function findByUserId(userId: string){
+  return this.findOne({
+     where:{
+      fk_user_id: userId,
+  },
+})
+}
 export default UserProfile;
