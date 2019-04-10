@@ -43,6 +43,7 @@ module.exports = {
     "import/no-useless-path-segments":0,
     "react/sort-comp":0,
     "object-curly-newline":0,
-    "react/no-unused-prop-types":0
+    "react/no-unused-prop-types":0,
+    "react/destructuring-assignment":0
   }
 }

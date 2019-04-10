@@ -1,33 +1,72 @@
 // @flow
 import React, { Component } from 'react';
+import { withRouter, type Match, type Location, type RouterHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import type { State} from 'store';
+import queryString from 'query-string';
 import { AuthActions } from '../../store/actionCreators';
 import RegisterForm from '../../components/register/RegisterForm';
 
 
 type Props = {
-    name: string,
+    displayName: string,
     email: string,
     username: string,
-    shortBio: string
+    shortBio: string,
+    registerToken: string,
+    match: Match,
+    location: Location,
+    history: RouterHistory,
   };
 
 class RegisterFormContainer extends Component<Props> {
+    initialize = async () => {
+        const { search } = this.props.location;
+        const { code } = queryString.parse(search);
+
+        if (!code) {
+            // TODO: ERROR WHEN NO CODE
+        }
+        try {
+            await AuthActions.getCode(code);
+        } catch (e) {
+            // TODO: initialize ERROR 
+        }
+    }
+    componentDidMount() {
+        this.initialize();
+    }
     onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
         const { value, name} = e.target;
         AuthActions.changeRegisterForm({
             name, value,
         });
     }
+    onRegister = async () => {
+        const { displayName, email, username, shortBio, registerToken, history } = this.props;
+        try {
+           await AuthActions.localRegister({
+                registerToken,
+                form: {
+                displayName,
+                    username, 
+                    shortBio,
+                    },
+                });
+                history.push('/');
+            } catch (e) {
+            console.log(e);
+        }
+    }
     render() {
-        const { onChange } = this;
-        const { name, email, username, shortBio } = this.props;
+        const { onChange, onRegister} = this;
+        const { displayName, email, username, shortBio } = this.props;
 
         return (
             <RegisterForm 
                 onChange={onChange}
-                name={name}
+                onRegister={onRegister}
+                displayName={displayName}
                 email={email}
                 username={username}
                 shortBio={shortBio}
@@ -39,12 +78,12 @@ class RegisterFormContainer extends Component<Props> {
 
 export default connect(
     ({ auth }: State) => {
-        const { registerForm} = auth;
-        const { name, email, username, shortBio } = registerForm;
+        const { registerForm, registerToken } = auth;
+        const { displayName, email, username, shortBio } = registerForm;
 
         return {
-            name, email, username, shortBio,
+            displayName, email, username, shortBio, registerToken,
         };
     },
     () => ({ }),
-)(RegisterFormContainer);
+)(withRouter(RegisterFormContainer));

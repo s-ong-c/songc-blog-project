@@ -13,6 +13,7 @@ type Props = {
     email: string,
     sentEmail: boolean,
     sending: boolean,
+    isUser: boolean,
 }
 const AuthForm = ({ 
     onChange, 
@@ -21,6 +22,7 @@ const AuthForm = ({
     email,
     sentEmail,
     sending,
+    isUser,
     }: Props) => {
     return (
         <div className="auth-form">
@@ -29,8 +31,8 @@ const AuthForm = ({
                 <div className="sent-email">
                     <MdCheckCircle />
                     <div className="text">
-                        회원가입 인증 링크가 이메일로 발송 되었습니다. <br />  
-                        이메일의 링크를 통하여 회원가입을 계속하세요
+                        {isUser ? '로그인' : '회원가입'} 인증 링크가 이메일로 발송 되었습니다. <br />  
+                        이메일의 링크를 통하여 {isUser ? '로그인' : '회원가입'} 계속하세요
                     </div>
                 </div>
             ) : (

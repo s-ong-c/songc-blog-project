@@ -10,6 +10,7 @@ type Props = {
     email : string,
     sentEmail : boolean,
     sending: boolean,
+    isUser: boolean,
 }
 class AuthFormContainer extends Component<Props> {
     onEnterKeyPress = pressedEnter(() => {
@@ -32,10 +33,11 @@ class AuthFormContainer extends Component<Props> {
 
     render() {
         const { onChange, onSendVerification, onEnterKeyPress} = this;
-        const { email, sentEmail, sending}  = this.props;
+        const { email, sentEmail, sending, isUser}  = this.props;
         return (
                 <AuthFrom 
                     email ={email}
+                    isUser={isUser}
                     sending = {sending}
                     sentEmail= {sentEmail}
                     onChange={onChange}
@@ -50,6 +52,7 @@ export default connect(
     ({ auth, pender }: State) => ({
         email: auth.email,
         sentEmail: auth.sentEmail,
+        isUser: auth.isUser,
         sending: pender.pending['auth/SEND_AUTH_EMAIL'],
     }),
     () => ({}), 
