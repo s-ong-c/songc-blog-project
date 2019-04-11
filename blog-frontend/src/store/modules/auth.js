@@ -9,6 +9,7 @@ const SEND_AUTH_EMAIL = 'auth/SEND_AUTH_EMAIL';
 const CHANGE_REGISTER_FORM = 'auth/CHANGE_REGISTER_FORM';
 const GET_CODE = 'auth/GET_CODE';
 const LOCAL_REGISTER = 'auth/LOCAL_REGISTER';
+const CODE_LOGIN = 'auth/CODE_LOGIN';
 
 export type AuthActionCreators = {
     setEmailInput(value: string): any,
@@ -16,6 +17,7 @@ export type AuthActionCreators = {
     changeRegisterForm({ name: string, value: string }): any,
     getCode(code: string): any,
     localRegister(payload: AuthAPI.LocalRegisterPayload): any,
+    codeLogin(code: string): any,
 }
 export const actionCreators = {
     setEmailInput: createAction(SET_EMAIL_INPUT),
@@ -23,6 +25,7 @@ export const actionCreators = {
     getCode: createAction(GET_CODE, AuthAPI.getCode),
     changeRegisterForm: createAction(CHANGE_REGISTER_FORM),
     localRegister: createAction(LOCAL_REGISTER, AuthAPI.localRegister),
+    codeLogin: createAction(CODE_LOGIN, AuthAPI.codeLogin),
 };
 
 
@@ -37,7 +40,25 @@ export type Auth = {
         shortbio: string,
     },
     registerToken: string,
+    authResult: ?{
+        user: {
+            id: string,
+            username: string,
+            displayName: string,
+        },
+        token: string,
+    }
   };
+const UserSubRecord = Record({
+    id: '',
+    username: '',
+    displayName: '',
+});
+
+const AuthResultSubRecord = Record({
+    user: UserSubRecord(),
+    token: '',
+});
 
 const AuthRecord = Record(({
     email: '',
@@ -50,7 +71,8 @@ const AuthRecord = Record(({
         shortBio: '',
     })(),
     registerToken: '',
-}:Auth));
+    authResult: null,
+    }:Auth));
 
 const initialState: Auth = AuthRecord();
 
@@ -66,7 +88,6 @@ export default handleActions({
         },
     }),
     [CHANGE_REGISTER_FORM]: (state, { payload: { name, value } }) => {
-      console.log(name, value);
         return state.setIn(['registerForm', name], value);
     },
     ...pender({
@@ -75,6 +96,26 @@ export default handleActions({
             const { email, registerToken } = data;
             return state.setIn(['registerForm', 'email'], email)
                 .set('registerToken', registerToken);
+        },
+    }),
+    ...pender({
+        type: LOCAL_REGISTER,
+        onSuccess: (state, { payload: { data } }) => {
+            const { user, token } = data;
+            return state.set('authResult', AuthResultSubRecord({
+                user: UserSubRecord(user),
+                token,
+            }));
+        },
+    }),
+    ...pender({
+        type: CODE_LOGIN,
+        onSuccess: (state, { payload: { data } }) => {
+            const { user, token } = data;
+            return state.set('authResult', AuthResultSubRecord({
+                user: UserSubRecord(user),
+                token,
+            }));
         },
     }),
 }, initialState);

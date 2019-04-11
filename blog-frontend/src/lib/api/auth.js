@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const sendAuthEmail = (email: string): Promise<*> => axios.post('/auth/send-auth-email', { email});
 export const getCode = (code: string): Promise<*> => axios.get(`/auth/code/${code}`);
-
+export const codeLogin = (code: string): Promise<*> => axios.post('auth/code-login', {code});
 export type LocalRegisterPayload = {
     registerToken: string,
     form: {
