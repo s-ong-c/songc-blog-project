@@ -1,7 +1,8 @@
 // @flow
-import { createAction, handleActions } from 'redux-actions';
 import { Record, fromJS, type Map } from 'immutable';
 import { pender} from 'redux-pender';
+import createAction from 'redux-actions/lib/createAction';
+import handleActions from 'redux-actions/lib/handleActions';
 import * as AuthAPI from '../../lib/api/auth';
 
 const SET_EMAIL_INPUT = 'auth/SET_EMIAL_INPUT';

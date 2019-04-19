@@ -20,3 +20,5 @@ export type LocalRegisterPayload = {
     registerToken,
     form,
   });
+
+  export const check = (): Promise<*> => axios.get('/auth/check');
