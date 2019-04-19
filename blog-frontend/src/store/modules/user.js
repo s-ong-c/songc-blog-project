@@ -56,6 +56,7 @@ export default handleActions({
             return state.set('user',UserSubRecord(data.user))
                 .set('processed',true);
         },
+        onError: state => state.set('user', null).set('processed',true),
     }),
     [PROCESS]: state => state.set('processed', true),
 }, initialState);
