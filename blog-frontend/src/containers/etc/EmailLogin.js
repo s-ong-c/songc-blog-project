@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { type Match, type Location, type RouterHistory  } from 'react-router-dom';
 import queryString from 'query-string';
+import { connect } from 'react-redux';
+import type { State} from 'store';
 import { AuthActions } from '../../store/actionCreators';
 
 type Props = {
