@@ -39,4 +39,4 @@ class EmailLogin extends Component<Props> {
     }
 }
 
-export default EmailLogin;
+export default connect()(EmailLogin);
