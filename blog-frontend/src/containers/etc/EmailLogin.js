@@ -21,8 +21,10 @@ class EmailLogin extends Component<Props> {
         try {
            await AuthActions.codeLogin(code);
            const { authResult } = this.props;
+          
            if (!authResult) return;
            const {user, token} = authResult;
+           
            UserActions.setUser(user);
            storage.set(keys.user, user);
         } catch (e) {

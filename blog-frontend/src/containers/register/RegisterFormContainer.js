@@ -4,9 +4,10 @@ import { withRouter, type Match, type Location, type RouterHistory } from 'react
 import { connect } from 'react-redux';
 import type { State} from 'store';
 import queryString from 'query-string';
-import { AuthActions } from '../../store/actionCreators';
+import { AuthActions, UserActions } from '../../store/actionCreators';
 import RegisterForm from '../../components/register/RegisterForm';
-
+import type { AuthResult } from '../../store/modules/auth';
+import storage, { keys} from '../../lib/storage';
 
 type Props = {
     displayName: string,
@@ -17,6 +18,7 @@ type Props = {
     match: Match,
     location: Location,
     history: RouterHistory,
+    authResult: AuthResult,
   };
 
 class RegisterFormContainer extends Component<Props> {
@@ -53,6 +55,13 @@ class RegisterFormContainer extends Component<Props> {
                     shortBio,
                     },
                 });
+                const { authResult } = this.props;
+          
+                if (!authResult) return;
+                const {user, token} = authResult;
+                
+                UserActions.setUser(user);
+                storage.set(keys.user, user);
                 history.push('/');
             } catch (e) {
             console.log(e);
@@ -78,11 +87,16 @@ class RegisterFormContainer extends Component<Props> {
 
 export default connect(
     ({ auth }: State) => {
-        const { registerForm, registerToken } = auth;
+        const { registerForm, registerToken, authResult } = auth;
         const { displayName, email, username, shortBio } = registerForm;
 
         return {
-            displayName, email, username, shortBio, registerToken,
+            displayName,
+            email, 
+            username,
+            shortBio,
+            registerToken,
+            authResult,
         };
     },
     () => ({ }),
