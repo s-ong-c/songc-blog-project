@@ -29,6 +29,14 @@ export const actionCreators = {
     codeLogin: createAction(CODE_LOGIN, AuthAPI.codeLogin),
 };
 
+export type AuthResult = ?{
+    user: {
+      id: string,
+      username: string,
+      displayName: string,
+    },
+    token: string
+  };
 
 export type Auth = {
     email: string,
@@ -41,15 +49,9 @@ export type Auth = {
         shortbio: string,
     },
     registerToken: string,
-    authResult: ?{
-        user: {
-            id: string,
-            username: string,
-            displayName: string,
-        },
-        token: string,
-    }
+    authResult: AuthResult
   };
+  
 const UserSubRecord = Record({
     id: '',
     username: '',
