@@ -2,7 +2,7 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import type { State} from 'store';
-import AuthFrom from '../../components/home/AuthForm';
+import AuthFrom from '../../components/landing/AuthForm';
 import { AuthActions } from '../../store/actionCreators';
 import { pressedEnter} from '../../lib/common';
 
