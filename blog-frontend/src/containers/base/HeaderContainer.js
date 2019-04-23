@@ -2,6 +2,8 @@
 import React, { Component, type Node } from 'react';
 import Header from '../../components/base/Header';
 import withUser from '../../lib/hoc/withUser';
+import UserButtonContainer from './UserButtonContainer';
+import UserMenuContainer from './UserMenuContainer';
 import type { UserData} from '../../store/modules/user';
 
 type Props = {
@@ -15,13 +17,14 @@ class HeaderContainer extends Component<Props> {
             return (<div>HELLO</div>);
         }
         return ( 
-            <div>WORLD</div>
+            <UserButtonContainer />
         );
     }
     render() {
         return (
             <Header 
                 right={this.renderRight()}
+                userMenu={<UserMenuContainer />}
             />
         );
     }

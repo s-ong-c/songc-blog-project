@@ -5,9 +5,10 @@ import './Header.scss';
 
 type Props ={
     right: Node,
+    userMenu: Node,
 };
 
-const Header = ({ right}: Props) => (
+const Header = ({ right,userMenu}: Props) => (
         <header className="base header">
             <Responsive className="header-wrapper">
                 <div className="brand">
@@ -20,7 +21,9 @@ const Header = ({ right}: Props) => (
                 </nav>
                 <div className="rigth">
                     {right}
+                    {userMenu}
                 </div>
+              
             </Responsive>
         </header>
     );
