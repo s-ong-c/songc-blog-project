@@ -1,9 +1,13 @@
 // @flow
-import React from 'react';
+import React, { type Node } from 'react';
 import Responsive from '../../common/Responsive';
 import './Header.scss';
 
-const Header = () => (
+type Props ={
+    right: Node,
+};
+
+const Header = ({ right}: Props) => (
         <header className="base header">
             <Responsive className="header-wrapper">
                 <div className="brand">
@@ -15,7 +19,7 @@ const Header = () => (
                     <a href="/">태그</a>
                 </nav>
                 <div className="rigth">
-                    right side
+                    {right}
                 </div>
             </Responsive>
         </header>

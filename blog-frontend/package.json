@@ -50,6 +50,7 @@
     "react-redux": "^6.0.1",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
+    "recompose": "^0.30.0",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-pender": "^2.0.12",

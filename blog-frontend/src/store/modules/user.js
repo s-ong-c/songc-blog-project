@@ -25,12 +25,15 @@ export const actionCreators = {
     process: createAction(PROCESS),
 };
 
+export type UserData = {
+    id: string,
+    username: string,
+    displayName: string,
+    thumbnail: string,
+};
+
 export type User = {
-    user: ?{
-        id: string,
-        username: string,
-        displayName: string
-    },
+    user: ?UserData,
     processed: boolean,
 };
 
@@ -38,6 +41,7 @@ const UserSubRecord = Record({
     id: '',
     username: '',
     displayName: '',
+    thumbnail: null,
 });
 
 const UserRecord = Record({

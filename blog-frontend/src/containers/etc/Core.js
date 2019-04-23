@@ -3,13 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import type { State } from 'store';
 import storage from '../../lib/storage';
+import type { UserData } from '../../store/modules/user';
 import { UserActions } from '../../store/actionCreators';
 type Props = {
-    user: ? {
-        id: string,
-        username: string,
-        displayName: string,
-    }
+    user: ?UserData,
 };
 class Core extends Component<Props> {
     checkUser = async () => {
