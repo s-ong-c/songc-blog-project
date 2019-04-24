@@ -132,11 +132,12 @@ export const codeLogin = async (ctx: Context): Promise<*> => {
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
-    ctx.body ={
+    ctx.body = {
       user: {
         id: user.id,
         username: user.username,
         displayName: profile.display_name,
+        thumbnail: profile.thumbnail,
       },
       token
     };
