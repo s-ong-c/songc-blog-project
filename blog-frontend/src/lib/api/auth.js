@@ -22,3 +22,4 @@ export type LocalRegisterPayload = {
   });
 
   export const check = (): Promise<*> => axios.get('/auth/check');
+  export const logout = (): Promise<*> => axios.post('/auth/logout');
