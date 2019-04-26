@@ -68,7 +68,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "deploy": "aws s3 sync ./build s3://cdn.songc.io/",
+    "invalidate": "aws cloudfront create-invalidation --distribution-id E19HT2K565FOY4 --paths / /index.html /error.html /service-worker.js /manifest.json /favicon.ico"
   },
   "browserslist": [
     ">0.2%",
