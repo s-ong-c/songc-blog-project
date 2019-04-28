@@ -23,6 +23,7 @@ const AuthForm = ({
     sentEmail,
     sending,
     isUser,
+    onGithubLogin,
     }: Props) => {
     return (
         <div className="auth-form">
@@ -49,7 +50,7 @@ const AuthForm = ({
             <div className="or">OR</div>
           </div>
           <div className="social-button">
-            <SocialLoginButton type="github" />
+            <SocialLoginButton type="github" onClick={onGithubLogin} />
             <SocialLoginButton type="google" />
             <SocialLoginButton type="facebook" />
           </div>

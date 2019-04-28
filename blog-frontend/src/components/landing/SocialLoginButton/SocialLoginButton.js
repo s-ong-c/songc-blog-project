@@ -6,7 +6,8 @@ import './SocialLoginButton.scss';
 
 
 type Props = {
-    type: 'facebook' | 'google' | 'github'
+    type: 'facebook' | 'google' | 'github',
+    onClick(): void,
 };
 
 const providers = {
@@ -22,10 +23,10 @@ const providers = {
 };
 
 const SocialLoginButton = (props: Props) => {
-    const { type } = props;
+    const { type, onClick } = props;
     const { icon: Icon } = providers[type];
     return (
-        <div className={cx('social-login-button',type)}>
+        <div className={cx('social-login-button',type)} onClick={onClick}>
             <div className="icon">
                 <Icon />
             </div>
