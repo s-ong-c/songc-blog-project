@@ -44,6 +44,7 @@ module.exports = {
     "react/sort-comp":0,
     "object-curly-newline":0,
     "react/no-unused-prop-types":0,
-    "react/destructuring-assignment":0
+    "react/destructuring-assignment":0,
+    "max-len":0,
   }
 }

@@ -38,14 +38,12 @@ class AuthFormContainer extends Component<Props> {
         }
     }
 
-    onGithubLogin = () => {
-        window.name = 'songcApp';
-        const url = 'https://github.com/login/oauth/authorize?client_id=2620104e34dccc118b5e&redirect_url=http://localhost3000/callback';
-        const githubLogin = popup(url, 'githubLogin',400 , 730);
+    onSocialLogin = (provider: string) => {
+        AuthActions.socialLogin(provider);
     }
 
     render() {
-        const { onChange, onSendVerification, onEnterKeyPress, onGithubLogin} = this;
+        const { onChange, onSendVerification, onEnterKeyPress, onSocialLogin} = this;
         const { email, sentEmail, sending, isUser}  = this.props;
         return (
                 <AuthFrom 
@@ -56,7 +54,7 @@ class AuthFormContainer extends Component<Props> {
                     onChange={onChange}
                     onSendVerification={onSendVerification}
                     onEnterKeyPress={onEnterKeyPress}
-                    onGithubLogin={onGithubLogin}
+                    onSocialLogin={onSocialLogin}
                 />
         );
     }
