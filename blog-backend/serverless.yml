@@ -22,6 +22,7 @@ provider:
         - "ec2:DescribeNetworkInterfaces"
         - "ec2:DetachNetworkInterface"
         - "ec2:DeleteNetworkInterface"
+        - "ses:SendEmail"
       Resource: "*"
 
 functions:
@@ -31,11 +32,35 @@ functions:
       - http:
           path: /
           method: ANY
+          cors:
+            origin: 'https://songc.io'
+            headers:
+              - Cookie
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
       - http:
           path: /{any+} # this matches any path, the token 'any' doesn't mean anything special
           method: ANY
+          cors:
+            origin: 'https://songc.io'
+            headers:
+              - Cookie
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
     vpc:
       securityGroupIds:
         - sg-09a31af2f0fd82304
       subnetIds:
-        - subnet-14ca7b58
+        - subnet-02171c32e8e76b95f
+        - subnet-068f243977e2a5b16
+        - subnet-0a570ec07c65925e4

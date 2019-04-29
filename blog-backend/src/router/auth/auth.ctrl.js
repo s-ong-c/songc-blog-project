@@ -340,3 +340,9 @@ export const check = async (ctx: Context): Promise<*>=>{
 
   ctx.body = ctx.user;
 }
+
+export const logout = (ctx: Context) => {
+  // $flowFixMe: intersection bug
+  ctx.cookies.set('access_token', null);
+  ctx.status = 204;
+}
