@@ -23,6 +23,7 @@
     "eslint-plugin-flowtype": "2.50.1",
     "file-loader": "2.0.0",
     "fs-extra": "7.0.1",
+    "hellojs": "^2.0.0-4",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
     "immutable": "^4.0.0-rc.12",
