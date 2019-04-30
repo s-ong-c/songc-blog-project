@@ -35,8 +35,7 @@ export const actionCreators = {
 
 export type SocialAuthResult = ?{
     provider: string,
-    accessToken: string,
-    clientId: string
+    accessToken: string
 };
 
 export type AuthResult = ?{
@@ -79,7 +78,6 @@ const AuthResultSubRecord = Record({
 const SocialAuthResultSubRecord = Record({
     provider: '',
     accessToken: '',
-    clientId: '',
 });
 
 const AuthRecord = Record(({
@@ -145,10 +143,9 @@ export default handleActions({
         type: SOCIAL_LOGIN,
         onSuccess: (state, { payload: response, meta: provider }) => {
             if (!response) return state;
-            const { access_token: accessToken, client_id: clientId } = response.authResponse;
+            const { access_token: accessToken } = response.authResponse;
             return state.set('socialAuthResult', SocialAuthResultSubRecord({
                 accessToken,
-                clientId,
                 provider,
             }));
         },
