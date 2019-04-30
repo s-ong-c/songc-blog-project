@@ -12,5 +12,5 @@ auth.post('/register/local', authCtrl.createLocalAccount);
 //auth.post('/login/local', authCtrl.localLogin);
 auth.get('/check',authCtrl.check);
 auth.post('/logout', authCtrl.logout);
-
+auth.post('/login/:provider(github|facebook|google)', authCtrl.socialLogin);
 export default auth;

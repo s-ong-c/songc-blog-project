@@ -7,6 +7,7 @@ import User from 'database/models/User';
 import UserProfile from 'database/models/UserProfile';
 import EmailAuth from 'database/models/EmailAuth';
 import { generate, decode } from 'lib/token';
+import getSocialProfile from 'lib/getSocialProfile';
 
 import type { UserModel} from 'database/models/User';
 import type { UserProfileModel} from 'database/models/UserProfile';
@@ -346,3 +347,19 @@ export const logout = (ctx: Context) => {
   ctx.cookies.set('access_token', null);
   ctx.status = 204;
 }
+
+export const socialLogin = async (ctx: Context): Promise<*> => {
+  type BodySchema = {
+    accessToken: string,
+  };
+  console.log("aa")
+  const { accessToken }: { accessToken: string} = (ctx.request.body: any);
+  const { provider } = ctx.params;
+
+  try {
+    const result = await getSocialProfile(provider, accessToken);
+    console.log(result);
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};

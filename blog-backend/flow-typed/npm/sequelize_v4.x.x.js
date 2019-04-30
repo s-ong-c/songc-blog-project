@@ -1,5 +1,5 @@
-// flow-typed signature: e06d5aa5fc6082a4ad52b6f9d5e922d4
-// flow-typed version: 0d36584dff/sequelize_v4.x.x/flow_>=v0.42.x
+// flow-typed signature: 431606e32eaf4ff087ddaef53c5075dd
+// flow-typed version: 8b2ee54128/sequelize_v4.x.x/flow_>=v0.42.x
 
 // @flow
 
@@ -1382,7 +1382,7 @@ declare module "sequelize" {
     field: string,
   }
 
-  declare export class Association<Source: Model<any>, Target: Model<any>> {
+  declare class $Association<Source: Model<any>, Target: Model<any>> {
     constructor(source: Class<Source>, target: Class<Target>, options?: AssociationOptions): this;
     static BelongsTo: typeof BelongsTo;
     static HasOne: typeof HasOne;
@@ -1403,9 +1403,11 @@ declare module "sequelize" {
     associationType: $Subtype<AssociationType>;
   }
 
+  declare export type Association<T,T2> = $Association<T,T2>;
+
   declare type ArrayOrElement<T> = T | Array<T>;
 
-  declare class BelongsTo<Source: Model<any>, TargetAttributes: Object, TargetInitAttributes: Object, Target: Model<TargetAttributes, TargetInitAttributes>> extends Association<Source, Target> {
+  declare class BelongsTo<Source: Model<any>, TargetAttributes: Object, TargetInitAttributes: Object, Target: Model<TargetAttributes, TargetInitAttributes>> extends $Association<Source, Target> {
     associationType: 'BelongsTo';
     foreignKey: string;
     foreignKeyField: string;
@@ -1423,7 +1425,7 @@ declare module "sequelize" {
     create(sourceInstance: Source, values: TargetInitAttributes, options?: CreateOptions<TargetAttributes>): Promise<Target>;
   }
 
-  declare class HasOne<Source: Model<any>, TargetAttributes: Object, TargetInitAttributes: Object, Target: Model<TargetAttributes, TargetInitAttributes>> extends Association<Source, Target> {
+  declare class HasOne<Source: Model<any>, TargetAttributes: Object, TargetInitAttributes: Object, Target: Model<TargetAttributes, TargetInitAttributes>> extends $Association<Source, Target> {
     associationType: 'HasOne';
     foreignKey: string;
     foreignKeyField: string;
@@ -1441,7 +1443,7 @@ declare module "sequelize" {
     create(sourceInstance: Source, values: TargetInitAttributes, options?: CreateOptions<TargetAttributes>): Promise<Target>;
   }
 
-  declare class HasMany<Source: Model<any>, TargetAttributes: Object, TargetInitAttributes: Object, Target: Model<TargetAttributes, TargetInitAttributes>> extends Association<Source, Target> {
+  declare class HasMany<Source: Model<any>, TargetAttributes: Object, TargetInitAttributes: Object, Target: Model<TargetAttributes, TargetInitAttributes>> extends $Association<Source, Target> {
     associationType: 'HasMany';
     foreignKey: string;
     foreignKeyField: string;
@@ -1469,7 +1471,7 @@ declare module "sequelize" {
     Target: Model<TargetAttributes, TargetInitAttributes>,
     ThroughAttributes: Object,
     Through: Model<ThroughAttributes, any>
-  > extends Association<Source, Target> {
+  > extends $Association<Source, Target> {
     associationType: 'BelongsToMany';
     foreignKey: string;
     foreignKeyField: string;
@@ -1900,11 +1902,11 @@ declare module "sequelize" {
   /**
    * The Base Error all Sequelize Errors inherit from.
    */
-  declare export class BaseError extends Error {
+  declare class BaseError extends Error {
 
   }
 
-  declare export class ValidationError extends BaseError {
+  declare class ValidationError extends BaseError {
     /**
      * Validation Error. Thrown when the sequelize validation has failed. The error contains an `errors`
      * property, which is an array with 1 or more ValidationErrorItems, one for each validation that failed.
@@ -1928,7 +1930,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class ValidationErrorItem extends BaseError {
+  declare class ValidationErrorItem extends BaseError {
     /**
      * Validation Error Item
      * Instances of this class are included in the `ValidationError.errors` property.
@@ -1965,7 +1967,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class DatabaseError extends BaseError {
+  declare class DatabaseError extends BaseError {
     /**
      * A base class for all database related errors.
      */
@@ -1973,7 +1975,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class TimeoutError extends DatabaseError {
+  declare class TimeoutError extends DatabaseError {
     /**
      * Thrown when a database query times out because of a deadlock
      */
@@ -1981,7 +1983,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class UniqueConstraintError extends ValidationError {
+  declare class UniqueConstraintError extends ValidationError {
     /**
      * Thrown when a unique constraint is violated in the database
      */
@@ -1994,7 +1996,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class ForeignKeyConstraintError extends DatabaseError {
+  declare class ForeignKeyConstraintError extends DatabaseError {
     /**
      * Thrown when a foreign key constraint is violated in the database
      */
@@ -2009,7 +2011,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class ExclusionConstraintError extends DatabaseError {
+  declare class ExclusionConstraintError extends DatabaseError {
     /**
      * Thrown when an exclusion constraint is violated in the database
      */
@@ -2024,7 +2026,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class ConnectionError extends BaseError {
+  declare class ConnectionError extends BaseError {
     /**
      * A base class for all connection related errors.
      */
@@ -2032,7 +2034,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class ConnectionRefusedError extends ConnectionError {
+  declare class ConnectionRefusedError extends ConnectionError {
     /**
      * Thrown when a connection to a database is refused
      */
@@ -2040,7 +2042,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class AccessDeniedError extends ConnectionError{
+  declare class AccessDeniedError extends ConnectionError{
     /**
      * Thrown when a connection to a database is refused due to insufficient privileges
      */
@@ -2048,7 +2050,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class HostNotFoundError extends ConnectionError {
+  declare class HostNotFoundError extends ConnectionError {
     /**
      * Thrown when a connection to a database has a hostname that was not found
      */
@@ -2056,7 +2058,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class HostNotReachableError extends ConnectionError {
+  declare class HostNotReachableError extends ConnectionError {
     /**
      * Thrown when a connection to a database has a hostname that was not reachable
      */
@@ -2064,7 +2066,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class InvalidConnectionError extends ConnectionError {
+  declare class InvalidConnectionError extends ConnectionError {
     /**
      * Thrown when a connection to a database has invalid values for any of the connection parameters
      */
@@ -2072,7 +2074,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class ConnectionTimedOutError extends ConnectionError {
+  declare class ConnectionTimedOutError extends ConnectionError {
     /**
      * Thrown when a connection to a database times out
      */
@@ -2080,7 +2082,7 @@ declare module "sequelize" {
   }
 
 
-  declare export class EmptyResultError extends BaseError {
+  declare class EmptyResultError extends BaseError {
     /**
      * Thrown when a record was not found, Usually used with rejectOnEmpty mode (see message for details)
      */
@@ -2545,7 +2547,7 @@ declare module "sequelize" {
     /**
      * The association you want to eagerly load. (This can be used instead of providing a model/as pair)
      */
-    association?: Association<any, TInstance>,
+    association?: $Association<any, TInstance>,
 
     /**
      * Where clauses to apply to the child models. Note that this converts the eager load to an inner join,
@@ -3081,7 +3083,7 @@ declare module "sequelize" {
    * as factory. This class should _not_ be instantiated directly, it is created using `sequelize.define`, and
   already created models can be loaded using `sequelize.import`
   */
-  declare export class Model<TAttributes, TInitAttributes = TAttributes, TPlainAttributes = TAttributes> {
+  declare class Model<TAttributes, TInitAttributes = TAttributes, TPlainAttributes = TAttributes> {
     static init(attributes: DefineAttributes, options: DefineOptions<this>): this,
 
     static QueryInterface: QueryInterface,
@@ -3933,10 +3935,10 @@ declare module "sequelize" {
       ThroughAttributes, Through
     >,
 
-    static getAssociations<Target: Model<any>>(model: Class<Target>): Array<Association<this, Target>>;
-    static getAssociationForAlias<Target: Model<any>>(model: Class<Target>, alias: ?string): ?Association<this, Target>;
+    static getAssociations<Target: Model<any>>(model: Class<Target>): Array<$Association<this, Target>>;
+    static getAssociationForAlias<Target: Model<any>>(model: Class<Target>, alias: ?string): ?$Association<this, Target>;
 
-    static associations: {[name: string]: Association<this, any>},
+    static associations: {[name: string]: $Association<this, any>},
     static tableName: string,
     static rawAttributes: {[name: string]: Attribute},
     static tableAttributes: {[name: string]: Attribute},
@@ -5278,7 +5280,7 @@ declare module "sequelize" {
    * @see  DefineOptions
    */
   declare export type DefineScopeOptions = {
-    [scopeName: string]: AnyFindOptions | Function
+    [scopeName: string]: AnyFindOptions | (...a: any) => mixed
   }
 
 
@@ -6081,7 +6083,14 @@ declare module "sequelize" {
   should also be installed in your project. You don't need to import it however, as
   sequelize will take care of that.
   */
-  declare export default class Sequelize {
+  declare class Sequelize {
+    // Next static fields need for CommonJS compatibility
+    // https://github.com/sequelize/sequelize/blob/5412adea655a0cfe1d7a3e5c02e4f7ca1839751f/lib/sequelize.js#L1308-L1310
+    static Sequelize: typeof Sequelize,
+    static default: typeof Sequelize,
+    static Association: typeof $Association,
+
+
     constructor(database: string, username?: ?string, password?: ?string, options?: Options): Sequelize;
     constructor(database: string, options?: Options): Sequelize;
     constructor(options: Options): Sequelize;
@@ -7172,7 +7181,7 @@ declare module "sequelize" {
     databaseVersion(): Promise<string>,
   }
 
-
+  declare module.exports: typeof Sequelize;
 
   /**
    * Validator Interface
@@ -7202,7 +7211,7 @@ declare module "sequelize" {
 
   To run a query under a transaction, you should pass the transaction in the options object.
   */
-  declare export class Transaction {
+  declare class Transaction {
     /**
      * Commit the transaction
      */
