@@ -13,7 +13,11 @@ const profileGetters = {
         });
         return new Promise((resolve, reject) => {
             github.users.get({}, (err, res) => {
-                if (err) reject(err);
+                if (err) {
+                    reject(err);
+                    return;
+                  }
+                  
                 const {
                     id,
                     avatar_url: thumbnail,
@@ -65,6 +69,7 @@ const profileGetters = {
                 email: emails[0].value,
                 name: displayName && displayName.split(' (')[0],
               };
+
               resolve(profile);
             });
           });  

@@ -5,6 +5,7 @@ import sendMail from '../../lib/sendMail';
 
 import User from 'database/models/User';
 import UserProfile from 'database/models/UserProfile';
+import SocialAccount from 'database/models/SocialAccount';
 import EmailAuth from 'database/models/EmailAuth';
 import { generate, decode } from 'lib/token';
 import getSocialProfile from 'lib/getSocialProfile';
@@ -253,94 +254,16 @@ export const createLocalAccount = async (ctx: Context): Promise<*> => {
   }
 };
 
-// export const localLogin = async (ctx: Context): Promise<*> =>{
-//   type BodySchema ={
-//     email?: string,
-//     password: string,
-//     username?: string
-//   };
-
-//   const { email, username, password}: BodySchema = (ctx.request.body: any);
-  
-//   // email & username not given
-//   if(!(email || username)){
-//     console.log("ss");
-//       ctx.status = 401;
-//       ctx.body={
-//         name: 'LOGIN_FAILURE',
-//       };
-//       return;
-//   }
-//   const schema = Joi.object().keys({
-//     email: Joi.string().email(),
-//     password: Joi.string().min(6).required(),
-//     username: Joi.string().alphanum().min(3).max(20),
-//   });
-  
-//   // somehow wrong schema
-//   const result: any = Joi.validate(ctx.request.body, schema);
-//   if( result.error){
-//     ctx.status = 401;
-//     ctx.body = {
-//       name: 'LOGIN_FAILURE',
-//     };
-//     return; 
-//   }
-
-//   try{
-//     const value: any = email || username;
-//     const type: ('email' | 'username') = email ? 'email': 'username';
-
-//     const user: UserModel = await User.findUser(type, value);
-
-//     if(!user){
-//       ctx.status= 401;
-//       ctx.body= {
-//         name: 'LOGIN_FAILURE',
-//       }
-//       return;
-//     }
-//     console.log(user);
-    
-    
-//     const validated: boolean = await user.validatePassword(password);
-//     if(!validated){
-//       ctx.status= 401;
-//       ctx.body= {
-//         name: 'LOGIN_FAILURE',
-//       };
-//       return;
-//     }
-//     const token: string= await user.generateToken();
-
-//     // set-cookie
-//     // $flowFixMe: intersection bug
-//     ctx.cookies.set('access_token',token,{
-//       httpOnly:true,
-//       maxAge: 1000 * 60 * 60 * 24 * 7,
-//     });
-
-//     ctx.body ={
-//       user: {
-//         id: user.id,
-//         username: user.username,
-//       },
-//       token
-//     };
-//   }catch(e){
-//     ctx.throw(500,e);
-//   }
-
-// };
-
-export const check = async (ctx: Context): Promise<*>=>{
+export const check = async (ctx: Context): Promise<*> => {
   if (!ctx.user) {
     ctx.status = 401;
     return;
   }
 
-  ctx.body = ctx.user;
-}
+  ctx.body = {
+    user: ctx.user,
+  };
+};
 
 export const logout = (ctx: Context) => {
   // $flowFixMe: intersection bug
@@ -352,14 +275,104 @@ export const socialLogin = async (ctx: Context): Promise<*> => {
   type BodySchema = {
     accessToken: string,
   };
-  console.log("aa")
-  const { accessToken }: { accessToken: string} = (ctx.request.body: any);
+
+  const { accessToken }: BodySchema = (ctx.request.body: any);
   const { provider } = ctx.params;
 
   try {
-    const result = await getSocialProfile(provider, accessToken);
-    console.log(result);
+    const profile = await getSocialProfile(provider, accessToken);
+
+    /*
+      - 아이디 , 이메일  , social 존재 유무 체크 
+    */
+    ctx.body = {
+      profile,
+      exists: false,
+    };
   } catch (e) {
-    ctx.throw(500, e);
+    ctx.status = 401;
+    ctx.body = {
+      name: 'WRONG_CREDENTIALS',
+    };
   }
+};
+
+export const socialRegister = async (ctx: Context): Promise<*> => {
+
+  type BodySchema = {
+    fallbackEmail: string,
+    accessToken: string,
+    form: {
+      displayName: string,
+      username: string,
+      shortBio: string
+    }
+  };
+
+  const schema = Joi.object().keys({
+    fallbackEmail: Joi.string(),
+    accessToken: Joi.string().required(),
+    form: Joi.object().keys({
+      displayName: Joi.string().min(1).max(40),
+      username: Joi.string().alphanum().min(3).max(16)
+        .required(),
+      shortBio: Joi.string().max(140),
+    }).required(),
+  });
+
+  const result: any = Joi.validate(ctx.request.body, schema);
+
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = {
+      name: 'WRONG_SCHEMA',
+      payload: result.error,
+    };
+    return;
+  }
+
+  const { provider } = ctx.params;
+  const { accessToken, form, fallbackEmail }: BodySchema = (ctx.request.body: any);
+
+  let profile = null;
+  try {
+    profile = await getSocialProfile(provider, accessToken);
+  } catch (e) {
+    ctx.status = 401;
+    ctx.body = {
+      name: 'WRONG_CREDENTIALS',
+    };
+    return;
+  }
+
+  const {id, thumbnail, email } = profile;
+  const { displayName, username, shortBio } = form;
+
+  try {
+
+    const user:User = await User.build({
+      username,
+      email: email || fallbackEmail,
+    }).save();
+
+    await UserProfile.build({
+      fk_user_id: user.id,
+      display_name: displayName,
+      short_bio: shortBio,
+    }).save();
+
+    // create Socialaccount row;
+    
+
+
+    /*
+      - if ( email exists ( 이미 가입했습니다. 깨룩 ),
+           set credential ) already  registered
+      - social 
+    */ 
+
+  } catch (e) {
+
+  }
+
 };
