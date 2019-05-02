@@ -271,7 +271,7 @@ export const logout = (ctx: Context) => {
   ctx.status = 204;
 }
 
-export const socialLogin = async (ctx: Context): Promise<*> => {
+export const verifySocial = async (ctx: Context): Promise<*> => {
   type BodySchema = {
     accessToken: string,
   };
@@ -359,10 +359,16 @@ export const socialRegister = async (ctx: Context): Promise<*> => {
       fk_user_id: user.id,
       display_name: displayName,
       short_bio: shortBio,
+      thumbnail
     }).save();
 
     // create Socialaccount row;
-    
+    await SocialAccount.build({
+      fk_user_id: user.id,
+      social_id: id.toString(),
+      provider,
+      access_token: accessToken,
+    }).save();
 
 
     /*

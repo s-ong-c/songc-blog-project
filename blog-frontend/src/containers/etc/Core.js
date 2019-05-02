@@ -19,6 +19,7 @@ class Core extends Component<Props> {
         try {
             await UserActions.checkUser();
         } catch (e) {
+            console.log(e);
             storage.remove('__songc_user__');
         }
     }

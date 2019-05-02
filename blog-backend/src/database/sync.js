@@ -6,16 +6,13 @@ import {
 } from './models';
 
 export default function sync() {
-    // sync Models
-    User.sync();
-    UserProfile.sync();
-    SocialAccount.sync();
-    EmailAuth.sync();
-
-    // set relations configure
-    UserProfile.associate();
-    SocialAccount.associate();
+  // configure relations
+  UserProfile.associate();
+  SocialAccount.associate();
+  
+  // sync Models
+  User.sync();
+  UserProfile.sync();
+  SocialAccount.sync();
+  EmailAuth.sync();
 }
-
-
-
