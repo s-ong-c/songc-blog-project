@@ -347,8 +347,34 @@ export const socialRegister = async (ctx: Context): Promise<*> => {
 
   const {id, thumbnail, email } = profile;
   const { displayName, username, shortBio } = form;
+  const socialId = id.toString();
 
   try {
+
+    const [emailExists, usernameExists] = await Promise.all([
+      User.findUser('email', email),
+      User.findUser('username', username),
+    ]);
+
+    if (emailExists || usernameExists) {
+      ctx.status = 409;
+      ctx.body = {
+        name: 'DUPLICATED_ACCOUNT',
+        payload: emailExists ? 'email' : 'username',
+      };
+      return;
+    }
+
+    const socialExists = await SocialAccount.findBySocialId(socialId);
+
+    if (socialExists) {
+      ctx.status = 409;
+      ctx.body = {
+        name: 'SOCIAL_ACCOUNT_EXISTS',
+      };
+      return;
+    }
+
 
     const user:User = await User.build({
       username,
@@ -370,15 +396,51 @@ export const socialRegister = async (ctx: Context): Promise<*> => {
       access_token: accessToken,
     }).save();
 
+    ctx.body = user.getProfile();
+    const token = await user.generateToken();
 
-    /*
-      - if ( email exists ( 이미 가입했습니다. 깨룩 ),
-           set credential ) already  registered
-      - social 
-    */ 
+    // $flowFixMe: intersection bug
+    ctx.cookies.set('access_token',token,{
+      httpOnly:true,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    });
+
+    ctx.body = {
+      user: {
+        id: user.id,
+        username: user.username,
+        displayName,
+        thumbnail,
+      },
+      token,
+    };
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
+export const socialLogin = async (ctx: Context): Promise<*> => {
+  type BodySchema = {
+    accessToken: string,
+  };
+
+  const { accessToken}: BodySchema = (ctx.request.body: any);
+  const { provider } = ctx.params;
+  if (typeof accessToken !== 'string') {
+    ctx.status = 400;
+    return;
+  }
+
+  let profile = null;
+  try {
+    profile = await getSocialProfile(provider, accessToken);
 
   } catch (e) {
-
+    ctx.status = 401;
+    ctx.body = {
+      name: 'WRONG_CREDENTIALS',
+    };
+    return;
   }
 
 };
