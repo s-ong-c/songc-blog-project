@@ -443,4 +443,10 @@ export const socialLogin = async (ctx: Context): Promise<*> => {
     return;
   }
 
+      // $FlowFixMe: intersection bug
+      ctx.cookies.set('access_token', token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+      });
+
 };
