@@ -4,8 +4,14 @@ import { google } from 'googleapis';
 import FacebookAPI from 'fb';
 import { plus_v1 } from 'googleapis/build/src/apis/plus/v1';
 
+type Profile = {
+    id: number | string,
+    thumbnail: ?string,
+    email: ?string,
+};
+
 const profileGetters = {
-    github(accessToken: string){
+    github(accessToken: string): Promise<Profile>{
         const github = new GithubAPI();
         github.authenticate({
             type: 'token',
@@ -32,7 +38,7 @@ const profileGetters = {
             });
         });
     },
-    facebook(accessToken: string){
+    facebook(accessToken: string): Promise<Profile>{
         return FacebookAPI.api('me', { fields: ['name', 'email', 'picture'], access_token: accessToken })
         .then((auth) => {
             return {
@@ -43,7 +49,7 @@ const profileGetters = {
             };
           });
     },
-    google(accessToken: string){
+    google(accessToken: string): Promise<Profile>{
         const plus = google.plus({
             version: 'v1',
           });

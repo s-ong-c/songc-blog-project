@@ -16,8 +16,15 @@ const SocialAccount = db.define('social_account', {
 });
 SocialAccount.findBySocialId = function findBySocialId(socialId: string) {
   return SocialAccount.findOne({ where: {social_id: socialId} });
+};
 
-}
+SocialAccount.findUserBySocialId = function findUserBySocialId(socialId: string){
+  return SocialAccount.findOne({ 
+    include: [User],
+     where: {social_id: socialId} 
+    }).then(data =>(data ? data.user : null ));
+};
+
 SocialAccount.associate = function associate() {
   SocialAccount.belongsTo(User, { foreignKey: 'fk_user_id', onDelete: 'restrict', onUpdate: 'restrict' });
 };
