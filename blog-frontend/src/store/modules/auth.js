@@ -13,6 +13,9 @@ const GET_CODE = 'auth/GET_CODE';
 const LOCAL_REGISTER = 'auth/LOCAL_REGISTER';
 const CODE_LOGIN = 'auth/CODE_LOGIN';
 const SOCIAL_LOGIN = 'auth/SOCIAL_LOGIN';
+const VERIFY_SOCIAL = 'auth/VERIFY_SOCIAL';
+const SOCIAL_REGISTER = 'auth/SOCIAL_REGISTER';
+const SOCIAL_SONGC_LOGIN = 'auth/SOSOCIAL_SONGC_LOGIN';
 
 export type AuthActionCreators = {
     setEmailInput(value: string): any,
@@ -22,6 +25,10 @@ export type AuthActionCreators = {
     localRegister(payload: AuthAPI.LocalRegisterPayload): any,
     codeLogin(code: string): any,
     socialLogin(provider: string): any,
+    verifySocial(payload: AuthAPI.VerifySocialPayload): any,
+    socialRegister(payload: AuthAPI.SocialRegisterPayload): any,
+    socialSongcLogin(payload: AuthAPI.SocialLoginPayload): any,
+
 }
 export const actionCreators = {
     setEmailInput: createAction(SET_EMAIL_INPUT),
