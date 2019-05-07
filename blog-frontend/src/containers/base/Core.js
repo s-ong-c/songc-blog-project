@@ -1,13 +1,15 @@
 // @flow
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import type { State } from 'store';
-import storage from '../../lib/storage';
-import type { UserData } from '../../store/modules/user';
 import { UserActions } from '../../store/actionCreators';
+import type { UserData } from '../../store/modules/user';
+import storage from '../../lib/storage';
+import FullscreenLoaderContainer from './FullscreenLoaderContainer';
+
 type Props = {
-    user: ?UserData,
-};
+    user: ?UserData
+  }
 class Core extends Component<Props> {
     checkUser = async () => {
         const storedUser = storage.get('__songc_user__');
@@ -29,16 +31,17 @@ class Core extends Component<Props> {
       componentDidMount() {
         this.initialize();
       }
-    render() {
+      render() {
         return (
-            <div />
+          <Fragment>
+            <FullscreenLoaderContainer />
+          </Fragment>
         );
+      }
     }
-}
-
 export default connect(
     ({ user }: State) => ({
-        user: user.user,
-        
+      user: user.user,
     }),
-)(Core);
+    () => ({}),
+  )(Core);
