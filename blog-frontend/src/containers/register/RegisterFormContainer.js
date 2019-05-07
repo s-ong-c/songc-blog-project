@@ -6,20 +6,23 @@ import type { State} from 'store';
 import queryString from 'query-string';
 import { AuthActions, UserActions } from '../../store/actionCreators';
 import RegisterForm from '../../components/register/RegisterForm';
-import type { AuthResult } from '../../store/modules/auth';
+import type { AuthResult, SocialAuthResult } from '../../store/modules/auth';
 import storage, { keys} from '../../lib/storage';
 
 type Props = {
-    displayName: string,
-    email: string,
-    username: string,
-    shortBio: string,
-    registerToken: string,
-    match: Match,
-    location: Location,
-    history: RouterHistory,
-    authResult: AuthResult,
-  };
+  displayName: string,
+  email: string,
+  username: string,
+  shortBio: string,
+  registerToken: string,
+  match: Match,
+  location: Location,
+  history: RouterHistory,
+  authResult: AuthResult,
+  isSocial: boolean,
+  socialAuthResult: SocialAuthResult,
+  socialEmail: ?string
+};
 
 class RegisterFormContainer extends Component<Props> {
     initialize = async () => {
@@ -45,32 +48,49 @@ class RegisterFormContainer extends Component<Props> {
         });
     }
     onRegister = async () => {
-        const { displayName, email, username, shortBio, registerToken, history } = this.props;
+        const {
+          displayName,
+          username,
+          shortBio,
+          registerToken,
+          history,
+          isSocial,
+          socialAuthResult,
+        } = this.props;
+
+
+        const form = {
+           displayName,
+           username,
+           shortBio, 
+        };
         try {
-           await AuthActions.localRegister({
-                registerToken,
-                form: {
-                displayName,
-                    username, 
-                    shortBio,
-                    },
+            if (isSocial) {
+                if (!socialAuthResult) return;
+                const { accessToken, provider } = socialAuthResult;
+                // TODO: if no email, use fallback email
+                await AuthActions.socialRegister({ accessToken, provider, form });
+              } else {
+                await AuthActions.localRegister({
+                  registerToken,
+                  form,
                 });
-                const { authResult } = this.props;
+              }
+            const { authResult } = this.props;
           
-                if (!authResult) return;
-                const {user, token} = authResult;
-                
-                UserActions.setUser(user);
-                storage.set(keys.user, user);
-                history.push('/');
+            if (!authResult) return;
+            const {user, token} = authResult;
+            UserActions.setUser(user);
+            storage.set(keys.user, user);
+            history.push('/');
             } catch (e) {
             console.log(e);
         }
     }
     render() {
         const { onChange, onRegister} = this;
-        const { displayName, email, username, shortBio } = this.props;
-
+        const { displayName, email, username, shortBio, socialEmail, isSocial } = this.props;
+        console.log(isSocial,socialEmail);
         return (
             <RegisterForm 
                 onChange={onChange}
@@ -79,6 +99,7 @@ class RegisterFormContainer extends Component<Props> {
                 email={email}
                 username={username}
                 shortBio={shortBio}
+                emailEditable={isSocial && !socialEmail}
             />
                 
         );
@@ -87,17 +108,27 @@ class RegisterFormContainer extends Component<Props> {
 
 export default connect(
     ({ auth }: State) => {
-        const { registerForm, registerToken, authResult } = auth;
-        const { displayName, email, username, shortBio } = registerForm;
-
-        return {
-            displayName,
-            email, 
-            username,
-            shortBio,
-            registerToken,
-            authResult,
-        };
+      const {
+        registerForm,
+        registerToken,
+        authResult,
+        socialAuthResult,
+        isSocial,
+        verifySocialResult,
+      } = auth;
+      const { displayName, email, username, shortBio } = registerForm;
+  
+      return {
+        displayName,
+        email,
+        username,
+        shortBio,
+        registerToken,
+        authResult,
+        socialAuthResult,
+        isSocial,
+        socialEmail: verifySocialResult && verifySocialResult.email,
+      };
     },
-    () => ({ }),
-)(withRouter(RegisterFormContainer));
+    () => ({}),
+  )(withRouter(RegisterFormContainer));

@@ -32,7 +32,7 @@ export type LocalRegisterPayload = {
   export const logout = (): Promise<*> => axios.post('/auth/logout');
 
   export type VerifySocialPayload = { provider: string, accessToken: string };
-  export const verifySocial = ({ provider, accessToken}: VerifySocialPayload) => axios.post(`/auth/verify-socail/${provider}`, {accessToken});
+  export const verifySocial = ({ provider, accessToken}: VerifySocialPayload) => axios.post(`/auth/verifySocial/${provider}`, {accessToken});
 
   export type SocialRegisterPayload = {
     provider: string,

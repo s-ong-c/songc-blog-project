@@ -2,15 +2,22 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import type { State} from 'store';
+import { withRouter,  type RouterHistory  } from 'react-router-dom';
 import AuthFrom from '../../components/landing/AuthForm';
-import { AuthActions } from '../../store/actionCreators';
+import { AuthActions, UserActions, BaseActions } from '../../store/actionCreators';
 import { pressedEnter} from '../../lib/common';
+import type { SocialAuthResult, VerifySocialResult, AuthResult } from '../../store/modules/auth';
+import storage, { keys} from '../../lib/storage';
 
 type Props = {
     email : string,
     sentEmail : boolean,
     sending: boolean,
     isUser: boolean,
+    socialAuthResult: SocialAuthResult,
+    verifySocialResult: VerifySocialResult,
+    authResult: AuthResult,
+    history: RouterHistory,
 }
 function popup(url, title, w, h) {
     const y = (window.top.outerHeight / 2) + (window.top.screenY - (h / 2));
@@ -38,8 +45,47 @@ class AuthFormContainer extends Component<Props> {
         }
     }
 
-    onSocialLogin = (provider: string) => {
-        AuthActions.socialLogin(provider);
+    onSocialLogin = async (provider: string) => {
+        BaseActions.setFullscreenLoader(true);
+        try {
+            await AuthActions.socialLogin(provider);
+        } catch (e) {
+            // TODO : handle 소셜 로그인 에러
+            BaseActions.setFullscreenLoader(false);
+            return;
+        }
+
+        try {
+            const { socialAuthResult } = this.props;
+            if (!socialAuthResult) return;
+            const { accessToken } = socialAuthResult;
+            await AuthActions.verifySocial({ accessToken, provider});
+
+            const { verifySocialResult } = this.props;
+            if (!verifySocialResult) return;
+            const { exists } = verifySocialResult;
+            console.log(exists);
+            if (exists) {
+                // 로그인
+                await AuthActions.socialSongcLogin({ accessToken, provider });
+                const { authResult } = this.props;
+                if (!authResult) return;
+                const { user } = authResult;
+                UserActions.setUser(user);
+                storage.set(keys.user, user);
+            } else {
+                // 회원가입
+                const { email, name } = verifySocialResult;
+                if (!email) {
+                  // TODO  
+                }
+                AuthActions.autoCompleteRegisterForm({ email, name});
+                this.props.history.push('/register');
+            }
+        } catch (e) {
+            // TODO verify Error
+        }
+        BaseActions.setFullscreenLoader(false);
     }
 
     render() {
@@ -66,6 +112,9 @@ export default connect(
         sentEmail: auth.sentEmail,
         isUser: auth.isUser,
         sending: pender.pending['auth/SEND_AUTH_EMAIL'],
+        socialAuthResult: auth.socialAuthResult,
+        verifySocialResult: auth.verifySocialResult,
+        authResult: auth.authResult,
     }),
     () => ({}), 
-)(AuthFormContainer);
+)(withRouter(AuthFormContainer));
