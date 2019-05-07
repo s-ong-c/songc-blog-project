@@ -8,6 +8,7 @@ type Profile = {
     id: number | string,
     thumbnail: ?string,
     email: ?string,
+    name: ?string,
 };
 
 const profileGetters = {
@@ -28,11 +29,13 @@ const profileGetters = {
                     id,
                     avatar_url: thumbnail,
                     email,
+                    name,
                 } = res.data;
                 const profile = {
                     id,
                     thumbnail,
                     email,
+                    name,
                 };
                 resolve(profile);
             });
