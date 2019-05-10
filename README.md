@@ -1,6 +1,19 @@
 # songc-blog-project
 
 
+## Requirements
+### 포스트
+- [ ] 제목
+- [ ] 내욕
+- [ ] 타입( 마크다운)
+- [ ] 태그
+- [ ] 카테고리
+- [ ] 임시글
+- [ ] 작성된날짜
+- [ ] 댓글
+- [ ] 추천
+
+
 
 ## Development Environment
 - Language
