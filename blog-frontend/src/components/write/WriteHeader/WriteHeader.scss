@@ -1,0 +1,49 @@
+@import 'utils';
+
+.WriteHeader {
+    height: 4rem;
+    background: $oc-gray-8;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    align-items: center;
+    color: white;
+    .back-icon {
+        cursor: pointer;
+        font-size: 2rem;
+        color: rgba(255,255,255,0.8);
+        &:hover, &:active {
+            color: white;
+        }
+    }
+    .title-area {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        flex: 1;
+        display: flex;
+        input {
+            flex: 1;
+            background: none;
+            outline: 0;
+            border: none;
+            font-size: 1.25rem;
+            color:white;
+            &:placeholder {
+                color: rgba(255,255,255,0.9);
+            }
+        }
+    }
+    .submit-button {
+        margin-left: auto;
+        background: $oc-teal-7;
+        padding: 0.3rem;
+        font-weight: 500;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: box-shadow 0.2s ease-in;
+        @include material-shadow(1, 0.5);
+        @include hover(){
+            @include material-shadow(2, 0.7);
+        }
+    }
+}
