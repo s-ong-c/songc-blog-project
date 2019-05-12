@@ -18,6 +18,15 @@ export default function sync() {
   Category.associate();
   PostsTags.associate();
   
+  //sync 조건 설정
+  /**
+   *$ export SYNC_DB=true
+   * or
+   *$ export SYNC_DB=false
+  */
+  if (process.env.SYNC_DB !== 'true') {
+    return;
+  }
   // sync Models
   User.sync();
   UserProfile.sync();
