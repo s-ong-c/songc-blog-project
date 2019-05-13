@@ -46,5 +46,7 @@ module.exports = {
     "react/no-unused-prop-types":0,
     "react/destructuring-assignment":0,
     "max-len":0,
+    "jsx-a11y/no-autofocus":0,
+    "global-require":0,
   }
 }

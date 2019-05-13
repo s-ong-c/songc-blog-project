@@ -3,9 +3,9 @@ import './WriteTemplate.scss';
 const WriteTemplate = ({ header, panes }) => {
     return (
         <div className="WriteTemplate">
-            {header}
+            { header}
             <div className="reset">
-            hi
+            { panes }
             </div>
         </div>
     );

@@ -6,7 +6,10 @@ const WriteHeader = () => {
         <div className="WriteHeader">
             <MdArrowBack className="back-icon"/>
             <div className="title-area">
-                <input placeholder="제목을 입력하세요"/>
+                <input 
+                    placeholder="제목을 입력하세요"
+                    autoFocus
+                />
             </div>
             <div className="submit-button">
                 작성하기
