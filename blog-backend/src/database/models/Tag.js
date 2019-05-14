@@ -13,4 +13,17 @@ const Tag = db.define('tag', {
   name: Sequelize.STRING,
 });
 
+// gets 태그 아이디 if exists, create one if !exists.
+Tag.getId = async function getId(name: string){
+  try {
+    let tag = await Tag.findOne({ where: { name } });
+    if (!tag) {
+      tag = await Tag.build({ name }).save();
+    }
+    return tag.id;
+  } catch (e) {
+    throw (e);
+  }
+}
+
 export default Tag;
