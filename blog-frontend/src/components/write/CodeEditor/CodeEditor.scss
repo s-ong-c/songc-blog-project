@@ -1,4 +1,5 @@
 @import 'utils';
+
 .CodeEditor {
     display: flex;
     flex: 1;
@@ -13,11 +14,11 @@
         font-family: 'D2 coding';
         font-size: 1rem;
         &.cm-s-default {
-          border-right: 1px solid $oc-teal-2;
+          border-right: 1px solid $oc-gray-2;
         }
         &.cm-s-material {
           .cm-header {
-            color: $oc-teal-4;
+            color: $oc-cyan-4;
           }
           .cm-quote {
             color: $oc-gray-4;
@@ -26,4 +27,4 @@
         }
       }
     }
-  }
+}
