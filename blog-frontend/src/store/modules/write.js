@@ -4,9 +4,10 @@ import handleActions from 'redux-actions/lib/handleActions';
 import { Record, fromJS, type Map } from 'immutable';
 
 const EDIT_BODY = 'EDIT_BODY';
-
+const EDIT_FILED = 'EDIT_FILED';
 export type WriteActionCreators = {
-    editBody(value: string): any
+    editBody(value: string): any,
+    editFiled({field: string, value: string}): any
 };
 
 export const actionCreators = {
