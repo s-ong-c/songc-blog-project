@@ -42,5 +42,7 @@ export const createCategory = async (ctx: Context): Promise<*> => {
 
 export const renameCategory  =  async (ctx: Context): Promise<*> => {
     const { id } = ctx.params;
-    console.log(id);
+    // userId  & id find where User Id
+    // check categories exists
+    // rename category, save.
 };
