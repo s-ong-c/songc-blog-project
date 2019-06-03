@@ -1,4 +1,4 @@
-// flow-typed signature: 768f90933d9e5e031db85d19db1a7874
+// flow-typed signature: 7ef3b86c874fa644f3b44c2fb6a4b2ae
 // flow-typed version: <<STUB>>/serverless-http_v^1.5.2/flow_v0.60.1
 
 /**
@@ -22,22 +22,6 @@ declare module 'serverless-http' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
-declare module 'serverless-http/examples/hapi/src/index' {
-  declare module.exports: any;
-}
-
-declare module 'serverless-http/examples/hapi/src/plugins' {
-  declare module.exports: any;
-}
-
-declare module 'serverless-http/examples/hapi/src/routes/base' {
-  declare module.exports: any;
-}
-
-declare module 'serverless-http/examples/hapi/src/server' {
-  declare module.exports: any;
-}
-
 declare module 'serverless-http/lib/clean-up-event' {
   declare module.exports: any;
 }
@@ -83,18 +67,6 @@ declare module 'serverless-http/serverless-http' {
 }
 
 // Filename aliases
-declare module 'serverless-http/examples/hapi/src/index.js' {
-  declare module.exports: $Exports<'serverless-http/examples/hapi/src/index'>;
-}
-declare module 'serverless-http/examples/hapi/src/plugins.js' {
-  declare module.exports: $Exports<'serverless-http/examples/hapi/src/plugins'>;
-}
-declare module 'serverless-http/examples/hapi/src/routes/base.js' {
-  declare module.exports: $Exports<'serverless-http/examples/hapi/src/routes/base'>;
-}
-declare module 'serverless-http/examples/hapi/src/server.js' {
-  declare module.exports: $Exports<'serverless-http/examples/hapi/src/server'>;
-}
 declare module 'serverless-http/lib/clean-up-event.js' {
   declare module.exports: $Exports<'serverless-http/lib/clean-up-event'>;
 }
