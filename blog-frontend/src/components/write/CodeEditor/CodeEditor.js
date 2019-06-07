@@ -10,6 +10,7 @@ let CodeMirror = null;
 if (process.env.APP_ENV !== 'server') {
   CodeMirror = require('codemirror');
   require('codemirror/addon/scroll/simplescrollbars');
+  require('codemirror/addon/display/placeholder');
   require('codemirror/mode/markdown/markdown');
   require('codemirror/mode/javascript/javascript');
   require('codemirror/mode/jsx/jsx');
@@ -38,10 +39,11 @@ class CodeEditor extends Component<Props, State> {
     if (!CodeMirror) return;
     this.codeMirror = CodeMirror(this.editor, {
       mode: 'markdown',
-      theme: 'default',
-      lineNumbers: true, // 좌측에 라인넘버 띄우기
+      theme: 'material',
+      lineNumbers: false, // 좌측에 라인넘버 띄우기
       lineWrapping: true, // 내용이 너무 길면 다음 줄에 작성
       scrollbarStyle: 'overlay',
+      placeholder: '당신의 글을 뽐내 보세요...',
     });
     this.codeMirror.on('change', this.onChange);
   }
@@ -50,7 +52,7 @@ class CodeEditor extends Component<Props, State> {
       cursor: doc.getCursor(),
     });
     const { onEditBody, body } = this.props;
-    if (body !== doc.getvalue()) {
+    if (body !== doc.getValue()) {
       onEditBody(doc.getValue());
     }
   }
@@ -66,6 +68,7 @@ class CodeEditor extends Component<Props, State> {
 
     if (prevState.cursor !== cursor) {
       codeMirror.setCursor(cursor);
+      return;
     }
     if (prevProps.body !== body) {
       codeMirror.setValue(body);
@@ -73,11 +76,10 @@ class CodeEditor extends Component<Props, State> {
      codeMirror.setCursor(cursor);
     }
   }
-  
 
   render() {
     return (
-      <div className="CodeEditor">
+      <div className="CodeEditor material">
         <div className="editor" ref={(ref) => { this.editor = ref; }} />
         {/* <textarea ref={(ref) => { this.textarea = ref; }} /> */ }
       </div>
