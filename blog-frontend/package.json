@@ -42,7 +42,7 @@
     "mini-css-extract-plugin": "^0.7.0",
     "moment": "^2.22.1",
     "nanobar": "^0.4.2",
-    "node-sass": "^4.9.0",
+    "node-sass": "^7.0.0",
     "object-assign": "4.1.1",
     "open-color": "^1.6.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
